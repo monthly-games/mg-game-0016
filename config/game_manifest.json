@@ -1,0 +1,14 @@
+{
+  "game_id": "game_0016",
+  "code_name": "MG-0016",
+  "title_kr": "덱빌딩 히어로즈",
+  "title_en": "Deckbuilding Heroes",
+  "genre_tags": ["card_game", "deckbuilding", "auto_battler", "jrpg"],
+  "target_region": ["KR", "SEA", "Global"],
+  "engine_version": "1.0.0",
+  "analytics_profile": "default_v1",
+  "created_at": "2025-07-01",
+  "status": "development",
+  "year": 2,
+  "common_modules": ["deckbuilding_system", "card_system"]
+}

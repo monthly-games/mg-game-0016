@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "game_id": "game_0016",
+    "code_name": "MG-0016",
+    "title_kr": "덱빌딩 히어로즈",
+    "title_en": "Deckbuilding Heroes",
+    "version": "0.1.0",
+    "last_updated": "2025-07-01"
+  },
+  "overview": {
+    "genre_tags": ["card_game", "deckbuilding", "auto_battler", "jrpg"],
+    "target_audience": {
+      "age": "18-35",
+      "region": ["KR", "SEA", "Global"],
+      "play_style": "strategic"
+    },
+    "core_loop": "카드를 수집하여 덱을 구성하고 오토배틀로 스토리를 진행한다",
+    "unique_selling_point": "카드 덱빌딩과 JRPG 스토리의 조화",
+    "year2_role": "덱빌딩/카드 시스템 공통 모듈 승격 실험"
+  },
+  "gameplay": {
+    "core_mechanics": [
+      {
+        "name": "덱 구성",
+        "description": "30장의 카드로 전략적 덱 구성"
+      },
+      {
+        "name": "오토배틀",
+        "description": "구성한 덱으로 자동 전투 진행"
+      },
+      {
+        "name": "카드 수집",
+        "description": "다양한 방법으로 새로운 카드 획득"
+      },
+      {
+        "name": "스토리 진행",
+        "description": "JRPG 스타일의 스토리 챕터 클리어"
+      }
+    ],
+    "progression": {
+      "type": "chapter_story",
+      "description": "스토리 챕터를 진행하며 카드와 히어로 수집"
+    },
+    "session_length": "10-15분"
+  },
+  "economy": {
+    "currencies": [
+      {
+        "name": "골드",
+        "type": "soft",
+        "sources": ["배틀 승리", "일일 퀘스트", "카드 분해"],
+        "sinks": ["카드 강화", "덱 슬롯 확장", "상점 구매"]
+      },
+      {
+        "name": "크리스탈",
+        "type": "hard",
+        "sources": ["인앱 구매", "챕터 완료", "업적"],
+        "sinks": ["카드 팩", "프리미엄 덱", "히어로 해금"]
+      },
+      {
+        "name": "카드 파편",
+        "type": "resource",
+        "sources": ["카드 분해", "이벤트"],
+        "sinks": ["특정 카드 제작", "카드 승급"]
+      }
+    ],
+    "monetization": {
+      "model": "F2P + IAP",
+      "iap_items": ["크리스탈 패키지", "프리미엄 카드 팩", "히어로 번들"],
+      "ad_placements": ["보상형 광고 (추가 카드 드롭)"]
+    }
+  },
+  "card_system": {
+    "card_types": ["공격", "방어", "버프", "디버프", "특수"],
+    "card_rarities": ["common", "rare", "epic", "legendary"],
+    "deck_size": 30,
+    "max_card_copies": 2,
+    "card_upgrade_system": {
+      "max_level": 10,
+      "level_benefits": ["능력치 증가", "효과 강화", "코스트 감소"]
+    }
+  },
+  "technical": {
+    "platform": ["Android", "iOS"],
+    "engine": "Flutter + Flame",
+    "backend": "Firebase + Cloud Functions",
+    "analytics": "GA4 + BigQuery"
+  }
+}

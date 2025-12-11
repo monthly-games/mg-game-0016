@@ -1,0 +1,127 @@
+{
+  "version": "0.1.0",
+  "currencies": {
+    "gold": {
+      "display_name": "골드",
+      "icon": "assets/icons/gold.png",
+      "initial_amount": 5000,
+      "sources": {
+        "battle_win": {
+          "normal": 200,
+          "hard": 500,
+          "boss": 1000
+        },
+        "daily_quest": {
+          "amount": 1000
+        },
+        "card_dismantle": {
+          "common": 10,
+          "rare": 50,
+          "epic": 200,
+          "legendary": 1000
+        }
+      },
+      "sinks": {
+        "card_upgrade": {
+          "base_cost": 100,
+          "level_multiplier": 1.5
+        },
+        "deck_slot": {
+          "slot_2": 5000,
+          "slot_3": 10000,
+          "slot_4": 20000,
+          "slot_5": 50000
+        },
+        "shop_card": {
+          "common": 500,
+          "rare": 2000,
+          "epic": 10000
+        }
+      }
+    },
+    "crystals": {
+      "display_name": "크리스탈",
+      "icon": "assets/icons/crystal.png",
+      "initial_amount": 300,
+      "iap_packages": [
+        { "crystals": 100, "price_usd": 0.99 },
+        { "crystals": 550, "price_usd": 4.99 },
+        { "crystals": 1200, "price_usd": 9.99 },
+        { "crystals": 3000, "price_usd": 19.99 },
+        { "crystals": 8000, "price_usd": 49.99 }
+      ],
+      "uses": {
+        "card_pack_basic": 300,
+        "card_pack_premium": 1000,
+        "hero_unlock": 2000,
+        "deck_theme": 500
+      }
+    },
+    "card_shards": {
+      "display_name": "카드 파편",
+      "icon": "assets/icons/shard.png",
+      "sources": {
+        "dismantle": {
+          "common": 1,
+          "rare": 5,
+          "epic": 20,
+          "legendary": 100
+        },
+        "event_reward": "variable"
+      },
+      "sinks": {
+        "craft_card": {
+          "common": 10,
+          "rare": 50,
+          "epic": 200,
+          "legendary": 1000
+        },
+        "upgrade_tier": {
+          "common_to_rare": 100,
+          "rare_to_epic": 500,
+          "epic_to_legendary": 2000
+        }
+      }
+    }
+  },
+  "card_packs": {
+    "basic_pack": {
+      "cost": { "currency": "crystals", "amount": 300 },
+      "cards_per_pack": 5,
+      "rates": {
+        "legendary": 0.02,
+        "epic": 0.08,
+        "rare": 0.30,
+        "common": 0.60
+      },
+      "guaranteed": {
+        "rare_or_higher_per_pack": 1
+      }
+    },
+    "premium_pack": {
+      "cost": { "currency": "crystals", "amount": 1000 },
+      "cards_per_pack": 10,
+      "rates": {
+        "legendary": 0.05,
+        "epic": 0.15,
+        "rare": 0.40,
+        "common": 0.40
+      },
+      "guaranteed": {
+        "epic_or_higher_per_pack": 1
+      }
+    },
+    "ten_pull": {
+      "basic_cost": { "currency": "crystals", "amount": 2700 },
+      "premium_cost": { "currency": "crystals", "amount": 9000 },
+      "guaranteed_legendary": true
+    }
+  },
+  "heroes": {
+    "unlock_methods": [
+      { "method": "story_progress", "heroes": ["warrior", "mage", "archer"] },
+      { "method": "crystal_purchase", "cost": 2000, "heroes": ["paladin", "assassin", "priest"] },
+      { "method": "event_reward", "heroes": ["necromancer", "druid"] }
+    ]
+  }
+}

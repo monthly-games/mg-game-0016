@@ -1,0 +1,141 @@
+{
+  "version": "0.1.0",
+  "story_chapters": [
+    {
+      "chapter_id": 1,
+      "name": "모험의 시작",
+      "difficulty": "easy",
+      "stages": [
+        {
+          "stage_id": "1-1",
+          "name": "숲의 입구",
+          "enemy_deck_power": 100,
+          "rewards": {
+            "gold": 200,
+            "cards": [{ "rarity": "common", "count": 2 }]
+          }
+        },
+        {
+          "stage_id": "1-5",
+          "name": "숲의 수호자",
+          "type": "boss",
+          "enemy_deck_power": 300,
+          "rewards": {
+            "gold": 1000,
+            "crystals": 50,
+            "cards": [{ "rarity": "rare", "count": 1 }],
+            "hero_unlock": "warrior"
+          }
+        }
+      ]
+    },
+    {
+      "chapter_id": 2,
+      "name": "어둠의 동굴",
+      "difficulty": "normal",
+      "stages": [
+        {
+          "stage_id": "2-1",
+          "name": "동굴 입구",
+          "enemy_deck_power": 400,
+          "rewards": {
+            "gold": 300,
+            "cards": [{ "rarity": "common", "count": 2 }]
+          }
+        },
+        {
+          "stage_id": "2-10",
+          "name": "동굴의 지배자",
+          "type": "boss",
+          "enemy_deck_power": 1000,
+          "rewards": {
+            "gold": 2000,
+            "crystals": 100,
+            "cards": [{ "rarity": "epic", "count": 1 }],
+            "hero_unlock": "mage"
+          }
+        }
+      ]
+    },
+    {
+      "chapter_id": 3,
+      "name": "고대 유적",
+      "difficulty": "hard",
+      "stages": [
+        {
+          "stage_id": "3-1",
+          "name": "유적 외곽",
+          "enemy_deck_power": 1200,
+          "rewards": {
+            "gold": 500,
+            "cards": [{ "rarity": "rare", "count": 2 }]
+          }
+        },
+        {
+          "stage_id": "3-15",
+          "name": "고대의 수호신",
+          "type": "boss",
+          "enemy_deck_power": 3000,
+          "rewards": {
+            "gold": 5000,
+            "crystals": 300,
+            "cards": [{ "rarity": "legendary", "count": 1 }],
+            "hero_unlock": "archer",
+            "deck_theme": "ancient"
+          }
+        }
+      ]
+    },
+    {
+      "chapter_id": 4,
+      "name": "마왕성",
+      "difficulty": "very_hard",
+      "stages": [
+        {
+          "stage_id": "4-1",
+          "name": "성문",
+          "enemy_deck_power": 3500,
+          "rewards": {
+            "gold": 800,
+            "cards": [{ "rarity": "epic", "count": 2 }]
+          }
+        },
+        {
+          "stage_id": "4-20",
+          "name": "마왕",
+          "type": "final_boss",
+          "enemy_deck_power": 8000,
+          "rewards": {
+            "gold": 10000,
+            "crystals": 1000,
+            "cards": [{ "rarity": "legendary", "count": 3 }],
+            "hero_unlock": "hero_true_form",
+            "special_title": "demon_slayer"
+          }
+        }
+      ]
+    }
+  ],
+  "card_pool": {
+    "attack_cards": [
+      { "id": "slash", "name": "베기", "rarity": "common", "damage": 100, "cost": 2 },
+      { "id": "heavy_strike", "name": "강타", "rarity": "rare", "damage": 250, "cost": 4 },
+      { "id": "ultimate_blow", "name": "필살기", "rarity": "epic", "damage": 500, "cost": 6 },
+      { "id": "divine_strike", "name": "신성한 일격", "rarity": "legendary", "damage": 1000, "cost": 8 }
+    ],
+    "defense_cards": [
+      { "id": "block", "name": "막기", "rarity": "common", "defense": 50, "cost": 1 },
+      { "id": "iron_wall", "name": "철벽", "rarity": "rare", "defense": 150, "cost": 3 },
+      { "id": "absolute_defense", "name": "절대방어", "rarity": "epic", "defense": 300, "cost": 5 }
+    ],
+    "buff_cards": [
+      { "id": "power_up", "name": "파워업", "rarity": "common", "effect": "attack_+20%", "cost": 2 },
+      { "id": "berserk", "name": "광폭화", "rarity": "epic", "effect": "attack_+50%_hp_-20%", "cost": 4 },
+      { "id": "heroic_aura", "name": "영웅의 기운", "rarity": "legendary", "effect": "all_stats_+30%", "cost": 6 }
+    ]
+  },
+  "difficulty_scaling": {
+    "enemy_deck_power_per_chapter": 3.0,
+    "reward_per_chapter": 2.0
+  }
+}
