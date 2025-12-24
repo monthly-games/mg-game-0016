@@ -1,292 +1,219 @@
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'dart:math';
-import 'card_data.dart';
+import '../../models/card.dart';
+import '../../models/deck.dart';
+import '../../models/player_data.dart';
+import '../persistence/save_manager.dart';
+import '../../data/mock_data.dart';
 
-/// Manages player's card collection and deck building
 class CardCollection extends ChangeNotifier {
-  // Player's owned cards (card name -> count)
-  Map<String, int> _ownedCards = {};
-  Map<String, int> get ownedCards => Map.unmodifiable(_ownedCards);
+  PlayerData _playerData = PlayerData.initial();
+  final Map<String, Card> _cardDatabase = {}; // All existing cards game-wide
 
-  // Player's current deck (30 cards, max 2 copies per card)
-  List<CardData> _currentDeck = [];
-  List<CardData> get currentDeck => List.unmodifiable(_currentDeck);
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
 
-  // Currencies
-  int _gold = 100;
-  int get gold => _gold;
-
-  int _crystals = 50;
-  int get crystals => _crystals;
-
-  int _cardFragments = 0;
-  int get cardFragments => _cardFragments;
-
-  // Deck constraints
-  static const int deckSize = 30;
-  static const int maxCopiesPerCard = 2;
+  List<String> get currentDeck => _playerData.currentDeck;
+  Map<String, int> get ownedCards => _playerData.ownedCards;
+  int get gold => _playerData.gold;
+  int get crystals => _playerData.crystals;
+  int get cardFragments => _playerData.cardFragments;
 
   CardCollection() {
-    _initializeStarterCollection();
-    loadProgress();
+    _initialize();
   }
 
-  void _initializeStarterCollection() {
-    // Starter cards (matching DeckManager's starting deck)
-    _ownedCards['Strike'] = 5;
-    _ownedCards['Defend'] = 5;
-    _ownedCards['Bash'] = 2;
+  Future<void> _initialize() async {
+    // 1. Load Card DB (Mock for now)
+    _loadCardDatabase();
 
-    // Build initial deck
-    _currentDeck.clear();
-    _currentDeck.addAll(List.generate(5, (_) => CardData.strike()));
-    _currentDeck.addAll(List.generate(4, (_) => CardData.defend()));
-    _currentDeck.add(CardData.bash());
-  }
-
-  /// Add a card to collection
-  void addCard(CardData card) {
-    _ownedCards[card.name] = (_ownedCards[card.name] ?? 0) + 1;
-    notifyListeners();
-    saveProgress();
-  }
-
-  /// Remove a card from collection (for crafting/selling)
-  bool removeCard(String cardName) {
-    if ((_ownedCards[cardName] ?? 0) <= 0) return false;
-
-    _ownedCards[cardName] = _ownedCards[cardName]! - 1;
-    if (_ownedCards[cardName] == 0) {
-      _ownedCards.remove(cardName);
+    // 2. Load Player Persistence
+    final savedData = await SaveManager().loadPlayerData();
+    if (savedData != null) {
+      _playerData = savedData;
+    } else {
+      // First time? Give starter deck
+      _playerData = _createStarterData();
+      await SaveManager().savePlayerData(_playerData);
     }
 
+    _isLoading = false;
     notifyListeners();
-    saveProgress();
-    return true;
   }
 
-  /// Add card to deck (if valid)
-  bool addToDeck(CardData card) {
-    // Check deck size
-    if (_currentDeck.length >= deckSize) return false;
-
-    // Check max copies
-    int currentCopies = _currentDeck.where((c) => c.name == card.name).length;
-    if (currentCopies >= maxCopiesPerCard) return false;
-
-    // Check if player owns the card
-    if ((_ownedCards[card.name] ?? 0) <= 0) return false;
-
-    _currentDeck.add(card);
-    notifyListeners();
-    saveProgress();
-    return true;
+  void _loadCardDatabase() {
+    _cardDatabase[MockData.strike.id] = MockData.strike;
+    _cardDatabase[MockData.defend.id] = MockData.defend;
+    _cardDatabase[MockData.heavyHit.id] = MockData.heavyHit;
+    _cardDatabase[MockData.quickSlash.id] = MockData.quickSlash;
+    _cardDatabase[MockData.heal.id] = MockData.heal;
+    _cardDatabase[MockData.fireball.id] = MockData.fireball;
+    _cardDatabase[MockData.ultimate.id] = MockData.ultimate;
   }
 
-  /// Remove card from deck
-  bool removeFromDeck(CardData card) {
-    if (!_currentDeck.contains(card)) return false;
+  PlayerData _createStarterData() {
+    // 5 Strikes, 5 Defends
+    Map<String, int> owned = {};
+    List<String> deck = [];
 
-    _currentDeck.remove(card);
-    notifyListeners();
-    saveProgress();
-    return true;
+    // Give 10 of each starter card
+    owned[MockData.strike.id] = 10;
+    owned[MockData.defend.id] = 10;
+
+    // Build initial deck (30 cards needed eventually, but for now 10)
+    for (int i = 0; i < 5; i++) deck.add(MockData.strike.id);
+    for (int i = 0; i < 5; i++) deck.add(MockData.defend.id);
+
+    return PlayerData(ownedCards: owned, currentDeck: deck, gold: 100);
   }
 
-  /// Clear entire deck
-  void clearDeck() {
-    _currentDeck.clear();
-    notifyListeners();
-    saveProgress();
-  }
+  // --- Deck Editing ---
 
-  /// Check if deck is valid (30 cards)
   bool isDeckValid() {
-    return _currentDeck.length == deckSize;
+    return _playerData.currentDeck.length == 30;
   }
 
-  /// Get all available cards (for card pool)
-  static List<CardData> getAllCards() {
-    return [
-      // Common (70% drop rate)
-      CardData.strike(),
-      CardData.defend(),
-      CardData.bash(),
-      // Rare (20% drop rate)
-      CardData.fireball(),
-      CardData.shield(),
-      // Epic (8% drop rate)
-      CardData.meteor(),
-      CardData.ironWall(),
-      // Legendary (2% drop rate)
-      CardData.divineStrike(),
-    ];
+  Card? getCardById(String id) => _cardDatabase[id];
+
+  void addCardToDeck(String cardId) {
+    if (_playerData.currentDeck.length >= 30) {
+      // Deck full
+      return;
+    }
+
+    // Check ownership
+    // Count how many we own vs how many in deck
+    int ownedCount = _playerData.ownedCards[cardId] ?? 0;
+    int inDeckCount = _playerData.currentDeck
+        .where((id) => id == cardId)
+        .length;
+
+    if (inDeckCount < ownedCount) {
+      List<String> newDeck = List.from(_playerData.currentDeck)..add(cardId);
+      _updatePlayerData(_playerData.copyWith(currentDeck: newDeck));
+    }
   }
 
-  /// Open a card pack (gacha system)
-  List<CardData> openCardPack({int packSize = 5}) {
-    final random = Random();
-    final allCards = getAllCards();
-    final drawnCards = <CardData>[];
+  void removeCardFromDeck(String cardId) {
+    if (_playerData.currentDeck.contains(cardId)) {
+      List<String> newDeck = List.from(_playerData.currentDeck);
+      newDeck.remove(cardId); // Removes first instance
+      _updatePlayerData(_playerData.copyWith(currentDeck: newDeck));
+    }
+  }
+
+  Future<void> _updatePlayerData(PlayerData newData) async {
+    _playerData = newData;
+    notifyListeners();
+    await SaveManager().savePlayerData(_playerData);
+  }
+
+  // --- Shop & Currency ---
+
+  bool spendGold(int amount) {
+    if (_playerData.gold >= amount) {
+      _updatePlayerData(_playerData.copyWith(gold: _playerData.gold - amount));
+      return true;
+    }
+    return false;
+  }
+
+  bool spendCrystals(int amount) {
+    if (_playerData.crystals >= amount) {
+      _updatePlayerData(
+        _playerData.copyWith(crystals: _playerData.crystals - amount),
+      );
+      return true;
+    }
+    return false;
+  }
+
+  List<Card> openCardPack({required int packSize, CardRarity? guaranteed}) {
+    // For now, return random cards from mock DB
+    List<Card> newCards = [];
+    final allCards = _cardDatabase.values.toList();
 
     for (int i = 0; i < packSize; i++) {
-      // Rarity roll (70% common, 20% rare, 8% epic, 2% legendary)
-      double roll = random.nextDouble() * 100;
-      CardRarity targetRarity;
-
-      if (roll < 2) {
-        targetRarity = CardRarity.legendary;
-      } else if (roll < 10) {
-        targetRarity = CardRarity.epic;
-      } else if (roll < 30) {
-        targetRarity = CardRarity.rare;
-      } else {
-        targetRarity = CardRarity.common;
-      }
-
-      // Get cards of target rarity
-      final cardsOfRarity = allCards.where((c) => c.rarity == targetRarity).toList();
-      if (cardsOfRarity.isEmpty) {
-        // Fallback to common if no cards found
-        targetRarity = CardRarity.common;
-        cardsOfRarity.addAll(allCards.where((c) => c.rarity == targetRarity));
-      }
-
-      // Pick random card
-      final card = cardsOfRarity[random.nextInt(cardsOfRarity.length)];
-      drawnCards.add(card);
-      addCard(card);
+      // Simple random pick
+      // TODO: Implement actual rarity logic based on 'guaranteed'
+      final card = allCards[DateTime.now().microsecond % allCards.length];
+      newCards.add(card);
+      _addCardToCollection(card.id);
     }
-
-    return drawnCards;
+    return newCards;
   }
 
-  /// Spend gold
-  bool spendGold(int amount) {
-    if (_gold < amount) return false;
-    _gold -= amount;
-    notifyListeners();
-    saveProgress();
-    return true;
+  void _addCardToCollection(String cardId) {
+    Map<String, int> owned = Map.from(_playerData.ownedCards);
+    owned[cardId] = (owned[cardId] ?? 0) + 1;
+    _updatePlayerData(_playerData.copyWith(ownedCards: owned));
   }
 
-  /// Spend crystals
-  bool spendCrystals(int amount) {
-    if (_crystals < amount) return false;
-    _crystals -= amount;
-    notifyListeners();
-    saveProgress();
-    return true;
+  void updatePlayerDataExternal(PlayerData newData) {
+    _updatePlayerData(newData);
   }
 
-  /// Add gold
+  // --- Upgrades ---
+
+  int getCardLevel(String cardId) => _playerData.cardLevels[cardId] ?? 1;
+
+  bool canUpgradeCard(String cardId) {
+    if (!(_playerData.ownedCards.containsKey(cardId))) return false;
+    int currentLevel = getCardLevel(cardId);
+    int cost = currentLevel * 50; // Simple cost formula
+    return _playerData.gold >= cost;
+  }
+
+  void upgradeCard(String cardId) {
+    if (canUpgradeCard(cardId)) {
+      int currentLevel = getCardLevel(cardId);
+      int cost = currentLevel * 50;
+
+      // Deduct Gold
+      int newGold = _playerData.gold - cost;
+
+      // Increase Level
+      Map<String, int> newLevels = Map.from(_playerData.cardLevels);
+      newLevels[cardId] = currentLevel + 1;
+
+      _updatePlayerData(
+        _playerData.copyWith(gold: newGold, cardLevels: newLevels),
+      );
+    }
+  }
+
+  // --- Campaign Helpers ---
+
+  PlayerData get playerData => _playerData;
+
   void addGold(int amount) {
-    _gold += amount;
-    notifyListeners();
-    saveProgress();
+    _updatePlayerData(_playerData.copyWith(gold: _playerData.gold + amount));
   }
 
-  /// Add crystals
   void addCrystals(int amount) {
-    _crystals += amount;
-    notifyListeners();
-    saveProgress();
+    _updatePlayerData(
+      _playerData.copyWith(crystals: _playerData.crystals + amount),
+    );
   }
 
-  /// Add card fragments
-  void addCardFragments(int amount) {
-    _cardFragments += amount;
-    notifyListeners();
-    saveProgress();
-  }
-
-  /// Save progress to SharedPreferences
-  Future<void> saveProgress() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString('ownedCards', jsonEncode(_ownedCards));
-    await prefs.setInt('gold', _gold);
-    await prefs.setInt('crystals', _crystals);
-    await prefs.setInt('cardFragments', _cardFragments);
-
-    // Save current deck (card names only)
-    final deckNames = _currentDeck.map((c) => c.name).toList();
-    await prefs.setString('currentDeck', jsonEncode(deckNames));
-  }
-
-  /// Load progress from SharedPreferences
-  Future<void> loadProgress() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-
-      // Load owned cards
-      final ownedCardsJson = prefs.getString('ownedCards');
-      if (ownedCardsJson != null) {
-        final decoded = jsonDecode(ownedCardsJson) as Map<String, dynamic>;
-        _ownedCards = decoded.map((key, value) => MapEntry(key, value as int));
-      }
-
-      // Load currencies
-      _gold = prefs.getInt('gold') ?? 100;
-      _crystals = prefs.getInt('crystals') ?? 50;
-      _cardFragments = prefs.getInt('cardFragments') ?? 0;
-
-      // Load current deck
-      final deckJson = prefs.getString('currentDeck');
-      if (deckJson != null) {
-        final deckNames = (jsonDecode(deckJson) as List).cast<String>();
-        _currentDeck.clear();
-
-        for (final name in deckNames) {
-          // Reconstruct cards from names
-          final card = _cardFromName(name);
-          if (card != null) {
-            _currentDeck.add(card);
-          }
-        }
-      }
-
-      notifyListeners();
-    } catch (e) {
-      print('Error loading progress: $e');
+  void unlockStage(String stageId) {
+    if (!_playerData.unlockedStageIds.contains(stageId)) {
+      List<String> newUnlocked = List.from(_playerData.unlockedStageIds)
+        ..add(stageId);
+      _updatePlayerData(_playerData.copyWith(unlockedStageIds: newUnlocked));
     }
   }
 
-  /// Helper: Get card from name
-  CardData? _cardFromName(String name) {
-    switch (name) {
-      case 'Strike':
-        return CardData.strike();
-      case 'Defend':
-        return CardData.defend();
-      case 'Bash':
-        return CardData.bash();
-      case 'Fireball':
-        return CardData.fireball();
-      case 'Shield':
-        return CardData.shield();
-      case 'Meteor':
-        return CardData.meteor();
-      case 'Iron Wall':
-        return CardData.ironWall();
-      case 'Divine Strike':
-        return CardData.divineStrike();
-      default:
-        return null;
+  // Helper for UI
+  Deck getDeckObject() {
+    List<Card> cards = [];
+    for (String id in _playerData.currentDeck) {
+      final card = _cardDatabase[id];
+      if (card != null) {
+        // Apply Level
+        int level = getCardLevel(id);
+        cards.add(card.copyWith(level: level));
+      }
     }
-  }
-
-  /// Reset all progress (for testing)
-  void resetProgress() {
-    _ownedCards.clear();
-    _currentDeck.clear();
-    _gold = 100;
-    _crystals = 50;
-    _cardFragments = 0;
-    _initializeStarterCollection();
-    saveProgress();
-    notifyListeners();
+    return Deck(cards: cards);
   }
 }

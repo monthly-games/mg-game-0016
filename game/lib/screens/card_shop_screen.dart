@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
+import '../models/card.dart' as model;
 import '../features/cards/card_collection.dart';
-import '../features/cards/card_data.dart';
 
 class CardShopScreen extends StatelessWidget {
   const CardShopScreen({super.key});
@@ -30,34 +30,45 @@ class CardShopScreen extends StatelessWidget {
                     _buildShopItem(
                       context,
                       title: 'Basic Pack',
-                      description: '5 random cards\n70% Common, 20% Rare, 8% Epic, 2% Legendary',
+                      description:
+                          '5 random cards\n70% Common, 20% Rare, 8% Epic, 2% Legendary',
                       cost: 100,
                       currencyType: 'Gold',
                       icon: Icons.card_giftcard,
                       color: Colors.grey,
-                      onPurchase: () => _openPack(context, collection, 100, 'gold'),
+                      onPurchase: () =>
+                          _openPack(context, collection, 100, 'gold'),
                       canAfford: collection.gold >= 100,
                     ),
                     _buildShopItem(
                       context,
                       title: 'Premium Pack',
-                      description: '5 random cards\nGuaranteed 1 Rare or better!',
+                      description:
+                          '5 random cards\nGuaranteed 1 Rare or better!',
                       cost: 50,
                       currencyType: 'Crystals',
                       icon: Icons.stars,
                       color: Colors.blue,
-                      onPurchase: () => _openPack(context, collection, 50, 'crystal'),
+                      onPurchase: () =>
+                          _openPack(context, collection, 50, 'crystal'),
                       canAfford: collection.crystals >= 50,
                     ),
                     _buildShopItem(
                       context,
                       title: 'Legendary Pack',
-                      description: '10 random cards\nGuaranteed 1 Epic or better!',
+                      description:
+                          '10 random cards\nGuaranteed 1 Epic or better!',
                       cost: 150,
                       currencyType: 'Crystals',
                       icon: Icons.diamond,
                       color: Colors.orange,
-                      onPurchase: () => _openPack(context, collection, 150, 'crystal', guaranteed: CardRarity.epic),
+                      onPurchase: () => _openPack(
+                        context,
+                        collection,
+                        150,
+                        'crystal',
+                        guaranteed: CardRarity.epic,
+                      ),
                       canAfford: collection.crystals >= 150,
                     ),
                   ],
@@ -146,6 +157,7 @@ class CardShopScreen extends StatelessWidget {
     required bool canAfford,
   }) {
     return Card(
+      // Use Material Card Widget
       color: AppColors.panel,
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
@@ -175,10 +187,7 @@ class CardShopScreen extends StatelessWidget {
                     style: AppTextStyles.header3.copyWith(color: color),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: AppTextStyles.caption,
-                  ),
+                  Text(description, style: AppTextStyles.caption),
                 ],
               ),
             ),
@@ -187,9 +196,14 @@ class CardShopScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: canAfford ? onPurchase : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: canAfford ? AppColors.primary : AppColors.textDisabled,
+                backgroundColor: canAfford
+                    ? AppColors.primary
+                    : AppColors.textDisabled,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -201,10 +215,7 @@ class CardShopScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    currencyType,
-                    style: const TextStyle(fontSize: 10),
-                  ),
+                  Text(currencyType, style: const TextStyle(fontSize: 10)),
                 ],
               ),
             ),
@@ -219,7 +230,7 @@ class CardShopScreen extends StatelessWidget {
     CardCollection collection,
     int cost,
     String currencyType, {
-    CardRarity? guaranteed,
+    model.CardRarity? guaranteed,
   }) {
     // Check and spend currency
     bool success = false;
@@ -230,21 +241,26 @@ class CardShopScreen extends StatelessWidget {
     }
 
     if (!success) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Not enough currency!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Not enough currency!')));
       return;
     }
 
     // Open pack
     final packSize = cost > 100 ? 10 : 5;
-    final cards = collection.openCardPack(packSize: packSize);
+    // Call with named parameters
+    final cards = collection.openCardPack(
+      packSize: packSize,
+      guaranteed: guaranteed,
+    );
 
     // Show pack opening animation
     _showPackOpeningDialog(context, cards);
   }
 
-  void _showPackOpeningDialog(BuildContext context, List<CardData> cards) {
+  void _showPackOpeningDialog(BuildContext context, List<model.Card> cards) {
+    // Use model.Card
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -281,15 +297,13 @@ class CardShopScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCardReveal(CardData card) {
+  Widget _buildCardReveal(model.Card card) {
+    // Use model.Card
     return Container(
       decoration: BoxDecoration(
         color: AppColors.panel,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: _getRarityColor(card.rarity),
-          width: 3,
-        ),
+        border: Border.all(color: _getRarityColor(card.rarity), width: 3),
         boxShadow: [
           BoxShadow(
             color: _getRarityColor(card.rarity).withOpacity(0.5),
@@ -314,10 +328,7 @@ class CardShopScreen extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             _getRarityName(card.rarity),
-            style: TextStyle(
-              color: _getRarityColor(card.rarity),
-              fontSize: 10,
-            ),
+            style: TextStyle(color: _getRarityColor(card.rarity), fontSize: 10),
           ),
         ],
       ),

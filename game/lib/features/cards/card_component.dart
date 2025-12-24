@@ -3,13 +3,14 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'card_data.dart';
 
-class CardComponent extends PositionComponent with DragCallbacks {
+class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
   final CardData data;
   final Function(CardComponent) onPlay; // Callback when dropped to play
 
   Vector2 _dragOffset = Vector2.zero();
   Vector2 _originalPosition = Vector2.zero();
   bool _isDragging = false;
+  Sprite? _frameSprite;
 
   CardComponent({
     required this.data,
@@ -17,13 +18,32 @@ class CardComponent extends PositionComponent with DragCallbacks {
     required Vector2 position,
   }) : super(
          position: position,
-         size: Vector2(100, 150),
+         size: Vector2(140, 210), // Adjusted for frame aspect ratio
          anchor: Anchor.center,
        );
 
   @override
-  void onLoad() {
+  Future<void> onLoad() async {
     _originalPosition = position.clone();
+
+    String frameName;
+    switch (data.type) {
+      case CardType.attack:
+        frameName = 'cards/card_frame_attack.png';
+        break;
+      case CardType.defence:
+        frameName = 'cards/card_frame_defence.png';
+        break;
+      case CardType.skill:
+        frameName = 'cards/card_frame_skill.png';
+        break;
+    }
+
+    try {
+      _frameSprite = await gameRef.loadSprite(frameName);
+    } catch (e) {
+      print('Failed to load card frame $frameName: $e');
+    }
   }
 
   @override
@@ -50,22 +70,27 @@ class CardComponent extends PositionComponent with DragCallbacks {
       );
     }
 
-    // Card Base
-    final paint = Paint()..color = _getCardColor(data.type);
-    final rrect = RRect.fromRectAndRadius(
-      size.toRect(),
-      const Radius.circular(12),
-    );
-    canvas.drawRRect(rrect, paint);
+    if (_frameSprite != null) {
+      _frameSprite!.render(canvas, size: size);
+    } else {
+      // Fallback
+      // Card Base
+      final paint = Paint()..color = _getCardColor(data.type);
+      final rrect = RRect.fromRectAndRadius(
+        size.toRect(),
+        const Radius.circular(12),
+      );
+      canvas.drawRRect(rrect, paint);
 
-    // Border
-    canvas.drawRRect(
-      rrect,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..color = Colors.white
-        ..strokeWidth = 2,
-    );
+      // Border
+      canvas.drawRRect(
+        rrect,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..color = Colors.white
+          ..strokeWidth = 2,
+      );
+    }
 
     // Cost (Top Left)
     final textPaint = TextPaint(

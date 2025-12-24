@@ -1,4 +1,13 @@
-# game_0016 수익화 전략 - 덱빌딩 히어로즈
+﻿# game_0016 수익화 전략 - 덱빌딩 히어로즈
+
+> game_id: game_0016
+> repo: mg-game-0016
+> title_kr: 덱빌딩 히어로즈
+> title_en: Deckbuilding Heroes
+> genre_tags: card_game, deckbuilding, auto_battler, jrpg
+> doc_type: monetization_design
+> source_of_truth: docs/design/gdd_game_0016.json
+> last_updated: 2025-12-19
 
 ## 게임 개요
 - **장르**: 덱 빌딩 + 자동 전투 + JRPG

@@ -1,7 +1,13 @@
-# 덱빌딩 히어로즈 - BM 설계 문서
+﻿# 덱빌딩 히어로즈 - BM 설계 문서
 
 > game_id: game_0016
 > repo: mg-game-0016
+> title_kr: 덱빌딩 히어로즈
+> title_en: Deckbuilding Heroes
+> genre_tags: card_game, deckbuilding, auto_battler, jrpg
+> doc_type: bm_design
+> source_of_truth: docs/design/gdd_game_0016.json
+> last_updated: 2025-12-19
 
 ---
 
