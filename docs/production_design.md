@@ -264,22 +264,22 @@ int upgradeCost(Card card) {
 ## 6. 프로덕션 체크리스트
 
 ### 핵심 기능
-- [ ] 카드 시스템
-- [ ] 덱빌딩 시스템
-- [ ] 오토배틀
+- [x] 카드 시스템 (CardData: Strike/Defend/Bash 등)
+- [x] 덱빌딩 시스템 (DeckManager: drawPile/hand/discardPile, max 10장)
+- [x] 오토배틀 (BattleEngine/BattleGame)
 - [ ] 가챠 시스템
 - [ ] 카드 강화/분해
 
 ### 콘텐츠
-- [ ] 200+ 카드
-- [ ] 10+ 히어로
-- [ ] 7 챕터 스토리
-- [ ] 시너지 시스템
+- [ ] 200+ 카드 (현재 기본 덱 10장: 5 Strike, 4 Defend, 1 Bash)
+- [ ] 10+ 히어로 (Hero model 있음)
+- [x] 캠페인 시스템 (CampaignManager, LevelData)
+- [x] 시너지 시스템 (SynergyEngine)
 - [ ] 튜토리얼
 
 ### 메타 시스템
+- [x] 퀘스트 시스템 (QuestManager, Quest model)
 - [ ] 프레스티지 시스템
-- [ ] 일일/주간 퀘스트
 - [ ] PvP 시스템
 - [ ] 길드 시스템
 - [ ] 배틀 패스
@@ -288,7 +288,7 @@ int upgradeCost(Card card) {
 - [ ] 가챠 시스템
 - [ ] 광고 SDK
 - [ ] IAP 상품
-- [ ] 시즌 패스
+- [x] 카드 상점 UI (CardShopScreen)
 
 ### QA/최적화
 - [ ] 카드 밸런싱
