@@ -44,13 +44,13 @@ void main() {
 
     test('Executes player turn correctly (dealing damage)', () {
       // Setup a state where player has an attack card and can play it
-      final attackCard = Card(
+      const attackCard = Card(
         id: 'atk',
         name: 'Big Hit',
         cost: 1,
         rarity: CardRarity.common,
         type: CardType.attack,
-        effect: const CardEffect(description: 'Dmg', value: 20),
+        effect: CardEffect(description: 'Dmg', value: 20),
       );
 
       var state = engine.initializeBattle(
@@ -74,13 +74,13 @@ void main() {
 
     test('Executes enemy turn correctly', () {
       // Setup state where player attacks do 0 damage (so enemy survives to attack back)
-      final weakCard = Card(
+      const weakCard = Card(
         id: 'weak',
         name: 'Weak',
         cost: 1,
         rarity: CardRarity.common,
         type: CardType.attack,
-        effect: const CardEffect(description: 'Dmg', value: 0),
+        effect: CardEffect(description: 'Dmg', value: 0),
       );
 
       var state = engine.initializeBattle(

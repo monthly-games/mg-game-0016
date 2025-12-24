@@ -35,8 +35,8 @@ class BattleEngine {
       enemy: enemy,
       playerDeck: remainingDeck,
       playerHand: hand,
-      playerDiscard: [],
-      battleLog: ["Battle Started!"],
+      playerDiscard: const [],
+      battleLog: const ["Battle Started!"],
       phase: BattlePhase.playerTurn,
     );
   }
@@ -157,10 +157,11 @@ class BattleEngine {
       BattlePhase nextPhase = BattlePhase.playerTurn;
       if (player.stats.hp <= 0 || enemy.stats.hp <= 0) {
         nextPhase = BattlePhase.end;
-        if (player.stats.hp <= 0)
+        if (player.stats.hp <= 0) {
           logs.add("Defeat...");
-        else
+        } else {
           logs.add("Victory!");
+        }
       }
 
       return state.copyWith(

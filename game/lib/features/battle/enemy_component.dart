@@ -66,8 +66,8 @@ class EnemyComponent extends PositionComponent with HasGameRef {
       );
 
       // Eyes
-      canvas.drawCircle(Offset(30, 40), 10, Paint()..color = Colors.yellow);
-      canvas.drawCircle(Offset(70, 40), 10, Paint()..color = Colors.yellow);
+      canvas.drawCircle(const Offset(30, 40), 10, Paint()..color = Colors.yellow);
+      canvas.drawCircle(const Offset(70, 40), 10, Paint()..color = Colors.yellow);
     }
   }
 

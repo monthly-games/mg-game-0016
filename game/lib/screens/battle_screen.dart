@@ -62,7 +62,7 @@ class _BattleScreenState extends State<BattleScreen> {
     }
   }
 
-  List<Widget> _floatingWidgets = [];
+  final List<Widget> _floatingWidgets = [];
 
   void _addFloatingText(String text, Color color, bool isPlayerTarget) {
     // Position: If target is player (bottom), show near bottom.

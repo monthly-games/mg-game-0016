@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import '../../models/level_data.dart';
-import '../../models/player_data.dart';
 import '../../models/hero.dart';
 import '../../features/cards/card_collection.dart';
 import '../../data/mock_data.dart';
@@ -23,12 +22,12 @@ class CampaignManager extends ChangeNotifier {
 
   void _loadMockLevels() {
     // Stage 1
-    final stage1 = Stage(
+    const stage1 = Stage(
       id: '1-1',
       name: 'Goblin Ambush',
       description: 'A group of goblins blocks the path.',
       enemy: MockData.enemyHero, // Weak goblin
-      firstClearReward: const Reward(gold: 50, crystals: 10),
+      firstClearReward: Reward(gold: 50, crystals: 10),
       recommendedPower: 100,
     );
 
@@ -72,8 +71,9 @@ class CampaignManager extends ChangeNotifier {
   bool isStageUnlocked(String stageId) {
     // Logic: If stage is in unlocked list
     // Or if previous stage is cleared (simple linear check for now)
-    if (_cardCollection.playerData.unlockedStageIds.contains(stageId))
+    if (_cardCollection.playerData.unlockedStageIds.contains(stageId)) {
       return true;
+    }
     return false;
   }
 

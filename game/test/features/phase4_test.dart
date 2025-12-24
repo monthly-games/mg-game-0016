@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:game/features/cards/card_collection.dart';
 import 'package:game/data/mock_data.dart';
-import 'package:game/models/card.dart';
 
 void main() {
   group('Phase 4 features', () {

@@ -19,8 +19,8 @@ class FloatingTextComponent extends TextComponent {
              color: color,
              fontSize: fontSize,
              fontWeight: FontWeight.bold,
-             shadows: [
-               const Shadow(
+             shadows: const [
+               Shadow(
                  blurRadius: 2,
                  color: Colors.black,
                  offset: Offset(1, 1),

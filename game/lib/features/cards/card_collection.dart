@@ -60,8 +60,12 @@ class CardCollection extends ChangeNotifier {
     owned[MockData.defend.id] = 10;
 
     // Build initial deck (30 cards needed eventually, but for now 10)
-    for (int i = 0; i < 5; i++) deck.add(MockData.strike.id);
-    for (int i = 0; i < 5; i++) deck.add(MockData.defend.id);
+    for (int i = 0; i < 5; i++) {
+      deck.add(MockData.strike.id);
+    }
+    for (int i = 0; i < 5; i++) {
+      deck.add(MockData.defend.id);
+    }
 
     return PlayerData(ownedCards: owned, currentDeck: deck, gold: 100);
   }

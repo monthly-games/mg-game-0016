@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:game/features/cards/card_collection.dart';
 import 'package:game/features/campaign/campaign_manager.dart';
-import 'package:game/models/level_data.dart';
 
 void main() {
   group('CampaignManager', () {

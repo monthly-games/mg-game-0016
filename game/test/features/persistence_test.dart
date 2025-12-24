@@ -14,7 +14,7 @@ void main() {
     });
 
     test('SaveManager serializes PlayerData correctly', () async {
-      final data = const PlayerData(
+      const data = PlayerData(
         ownedCards: {'c1': 5},
         currentDeck: ['c1', 'c1'],
         gold: 500,

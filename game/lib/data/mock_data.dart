@@ -15,7 +15,7 @@ class MockData {
     stats: HeroStats(hp: 50, maxHp: 50, attack: 8, defense: 2),
   );
 
-  static final Card strike = Card(
+  static const Card strike = Card(
     id: 'c1',
     name: 'Strike',
     cost: 1,
@@ -24,7 +24,7 @@ class MockData {
     effect: CardEffect(description: 'Deal 10 damage', value: 10),
   );
 
-  static final Card defend = Card(
+  static const Card defend = Card(
     id: 'c2',
     name: 'Defend',
     cost: 1,
@@ -33,7 +33,7 @@ class MockData {
     effect: CardEffect(description: 'Gain 5 block', value: 5),
   );
 
-  static final Card heavyHit = Card(
+  static const Card heavyHit = Card(
     id: 'c3',
     name: 'Heavy Hit',
     cost: 2,
@@ -42,7 +42,7 @@ class MockData {
     effect: CardEffect(description: 'Deal 25 damage', value: 25),
   );
 
-  static final Card quickSlash = Card(
+  static const Card quickSlash = Card(
     id: 'c4',
     name: 'Quick Slash',
     cost: 0,
@@ -51,7 +51,7 @@ class MockData {
     effect: CardEffect(description: 'Deal 6 damage', value: 6),
   );
 
-  static final Card heal = Card(
+  static const Card heal = Card(
     id: 'c5',
     name: 'Holy Light',
     cost: 2,
@@ -60,7 +60,7 @@ class MockData {
     effect: CardEffect(description: 'Heal 20 HP', value: 20),
   );
 
-  static final Card fireball = Card(
+  static const Card fireball = Card(
     id: 'c6',
     name: 'Fireball',
     cost: 2,
@@ -69,7 +69,7 @@ class MockData {
     effect: CardEffect(description: 'Deal 18 damage', value: 18),
   );
 
-  static final Card ultimate = Card(
+  static const Card ultimate = Card(
     id: 'c7',
     name: 'Meteor',
     cost: 3,
@@ -80,9 +80,15 @@ class MockData {
 
   static Deck get starterDeck {
     List<Card> cards = [];
-    for (int i = 0; i < 15; i++) cards.add(strike);
-    for (int i = 0; i < 10; i++) cards.add(defend);
-    for (int i = 0; i < 5; i++) cards.add(heavyHit);
+    for (int i = 0; i < 15; i++) {
+      cards.add(strike);
+    }
+    for (int i = 0; i < 10; i++) {
+      cards.add(defend);
+    }
+    for (int i = 0; i < 5; i++) {
+      cards.add(heavyHit);
+    }
     return Deck(cards: cards);
   }
 }

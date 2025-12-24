@@ -35,7 +35,7 @@ class MGCardBattleHud extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.all(MGSpacing.sm),
+        padding: const EdgeInsets.all(MGSpacing.sm),
         child: Column(
           children: [
             // 상단 HUD
@@ -75,7 +75,7 @@ class MGCardBattleHud extends StatelessWidget {
 
   Widget _buildTurnInfo() {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: MGSpacing.md,
         vertical: MGSpacing.xs,
       ),
@@ -94,16 +94,16 @@ class MGCardBattleHud extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            SizedBox(width: MGSpacing.sm),
+            const SizedBox(width: MGSpacing.sm),
             Container(
               width: 1,
               height: 20,
               color: MGColors.border,
             ),
-            SizedBox(width: MGSpacing.sm),
+            const SizedBox(width: MGSpacing.sm),
           ],
-          Icon(Icons.refresh, color: MGColors.primaryAction, size: 18),
-          SizedBox(width: MGSpacing.xxs),
+          const Icon(Icons.refresh, color: MGColors.primaryAction, size: 18),
+          const SizedBox(width: MGSpacing.xxs),
           Text(
             'Turn $turn',
             style: MGTextStyles.buttonMedium.copyWith(
@@ -118,7 +118,7 @@ class MGCardBattleHud extends StatelessWidget {
 
   Widget _buildCardCounts() {
     return Container(
-      padding: EdgeInsets.all(MGSpacing.sm),
+      padding: const EdgeInsets.all(MGSpacing.sm),
       decoration: BoxDecoration(
         color: MGColors.surface.withOpacity(0.85),
         borderRadius: BorderRadius.circular(MGSpacing.sm),
@@ -134,7 +134,7 @@ class MGCardBattleHud extends StatelessWidget {
             color: Colors.blue,
             label: 'Deck',
           ),
-          SizedBox(width: MGSpacing.md),
+          const SizedBox(width: MGSpacing.md),
           // 패
           _buildCardCounter(
             icon: Icons.style,
@@ -142,7 +142,7 @@ class MGCardBattleHud extends StatelessWidget {
             color: Colors.green,
             label: 'Hand',
           ),
-          SizedBox(width: MGSpacing.md),
+          const SizedBox(width: MGSpacing.md),
           // 무덤
           _buildCardCounter(
             icon: Icons.delete_outline,
@@ -165,7 +165,7 @@ class MGCardBattleHud extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(icon, color: color, size: 20),
-        SizedBox(height: MGSpacing.xxs),
+        const SizedBox(height: MGSpacing.xxs),
         Text(
           count.toString(),
           style: MGTextStyles.buttonMedium.copyWith(
@@ -179,7 +179,7 @@ class MGCardBattleHud extends StatelessWidget {
 
   Widget _buildManaDisplay() {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: MGSpacing.lg,
         vertical: MGSpacing.sm,
       ),
@@ -207,7 +207,7 @@ class MGCardBattleHud extends StatelessWidget {
           ...List.generate(maxMana, (index) {
             final bool isFilled = index < mana;
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 2),
               child: Icon(
                 isFilled ? Icons.diamond : Icons.diamond_outlined,
                 color: isFilled ? Colors.cyan : Colors.cyan.withOpacity(0.3),
@@ -224,7 +224,7 @@ class MGCardBattleHud extends StatelessWidget {
     return GestureDetector(
       onTap: onEndTurn,
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: MGSpacing.lg,
           vertical: MGSpacing.sm,
         ),
@@ -248,8 +248,8 @@ class MGCardBattleHud extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.skip_next, color: Colors.white, size: 20),
-            SizedBox(width: MGSpacing.xs),
+            const Icon(Icons.skip_next, color: Colors.white, size: 20),
+            const SizedBox(width: MGSpacing.xs),
             Text(
               'END TURN',
               style: MGTextStyles.buttonMedium.copyWith(
