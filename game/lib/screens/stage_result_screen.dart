@@ -21,7 +21,7 @@ class StageResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.85),
+      backgroundColor: Colors.black.withValues(alpha: 0.85),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(32),

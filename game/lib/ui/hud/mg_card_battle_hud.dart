@@ -80,7 +80,7 @@ class MGCardBattleHud extends StatelessWidget {
         vertical: MGSpacing.xs,
       ),
       decoration: BoxDecoration(
-        color: MGColors.surface.withOpacity(0.85),
+        color: MGColors.surface.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(MGSpacing.sm),
         border: Border.all(color: MGColors.border),
       ),
@@ -120,7 +120,7 @@ class MGCardBattleHud extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(MGSpacing.sm),
       decoration: BoxDecoration(
-        color: MGColors.surface.withOpacity(0.85),
+        color: MGColors.surface.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(MGSpacing.sm),
         border: Border.all(color: MGColors.border),
       ),
@@ -186,15 +186,15 @@ class MGCardBattleHud extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.blue.withOpacity(0.8),
-            Colors.purple.withOpacity(0.6),
+            Colors.blue.withValues(alpha: 0.8),
+            Colors.purple.withValues(alpha: 0.6),
           ],
         ),
         borderRadius: BorderRadius.circular(MGSpacing.md),
         border: Border.all(color: Colors.cyan, width: 2),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.4),
+            color: Colors.blue.withValues(alpha: 0.4),
             blurRadius: 12,
             spreadRadius: 2,
           ),
@@ -210,7 +210,7 @@ class MGCardBattleHud extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 2),
               child: Icon(
                 isFilled ? Icons.diamond : Icons.diamond_outlined,
-                color: isFilled ? Colors.cyan : Colors.cyan.withOpacity(0.3),
+                color: isFilled ? Colors.cyan : Colors.cyan.withValues(alpha: 0.3),
                 size: 24,
               ),
             );
@@ -232,14 +232,14 @@ class MGCardBattleHud extends StatelessWidget {
           gradient: LinearGradient(
             colors: [
               MGColors.primaryAction,
-              MGColors.primaryAction.withOpacity(0.7),
+              MGColors.primaryAction.withValues(alpha: 0.7),
             ],
           ),
           borderRadius: BorderRadius.circular(MGSpacing.sm),
           border: Border.all(color: Colors.white24, width: 2),
           boxShadow: [
             BoxShadow(
-              color: MGColors.primaryAction.withOpacity(0.4),
+              color: MGColors.primaryAction.withValues(alpha: 0.4),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

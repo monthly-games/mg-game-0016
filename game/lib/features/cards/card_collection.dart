@@ -113,7 +113,7 @@ class CardCollection extends ChangeNotifier {
 
   // --- Shop & Currency ---
 
-  bool spendGold(int amount) {
+  bool trySpendGold(int amount) {
     if (_playerData.gold >= amount) {
       _updatePlayerData(_playerData.copyWith(gold: _playerData.gold - amount));
       return true;

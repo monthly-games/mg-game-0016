@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Hero;
 import '../models/battle_state.dart';
 import '../models/hero.dart';
 import '../models/level_data.dart';

@@ -169,7 +169,7 @@ class CardShopScreen extends StatelessWidget {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.2),
+                color: color.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(icon, color: color, size: 32),
@@ -235,7 +235,7 @@ class CardShopScreen extends StatelessWidget {
     // Check and spend currency
     bool success = false;
     if (currencyType == 'gold') {
-      success = collection.spendGold(cost);
+      success = collection.trySpendGold(cost);
     } else {
       success = collection.spendCrystals(cost);
     }
@@ -306,7 +306,7 @@ class CardShopScreen extends StatelessWidget {
         border: Border.all(color: _getRarityColor(card.rarity), width: 3),
         boxShadow: [
           BoxShadow(
-            color: _getRarityColor(card.rarity).withOpacity(0.5),
+            color: _getRarityColor(card.rarity).withValues(alpha: 0.5),
             blurRadius: 8,
             spreadRadius: 2,
           ),

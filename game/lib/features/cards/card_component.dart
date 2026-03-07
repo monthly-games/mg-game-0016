@@ -55,7 +55,7 @@ class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
         (size / 2).toOffset(),
         localOrigin.toOffset(),
         Paint()
-          ..color = Colors.white.withOpacity(0.5)
+          ..color = Colors.white.withValues(alpha: 0.5)
           ..strokeWidth = 3
           ..style = PaintingStyle.stroke
           ..strokeCap = StrokeCap.round,
@@ -66,7 +66,7 @@ class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
     if (_isDragging) {
       canvas.drawRect(
         size.toRect().inflate(5),
-        Paint()..color = Colors.cyanAccent.withOpacity(0.5),
+        Paint()..color = Colors.cyanAccent.withValues(alpha: 0.5),
       );
     }
 
