@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/level_data.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class StageResultScreen extends StatelessWidget {
   final bool victory;
@@ -30,7 +31,7 @@ class StageResultScreen extends StatelessWidget {
             color: AppColors.panel,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: victory ? AppColors.primary : Colors.red,
+              color: victory ? AppColors.primary : MGColors.error,
               width: 2,
             ),
           ),
@@ -42,7 +43,7 @@ class StageResultScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
-                  color: victory ? AppColors.primary : Colors.red,
+                  color: victory ? AppColors.primary : MGColors.error,
                 ),
               ),
               const SizedBox(height: 16),

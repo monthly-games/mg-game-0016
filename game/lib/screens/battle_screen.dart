@@ -13,6 +13,7 @@ import '../features/campaign/campaign_manager.dart';
 import 'stage_result_screen.dart';
 import '../features/meta/quest_manager.dart';
 import '../models/quest.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class BattleScreen extends StatefulWidget {
   final Stage? stage;
@@ -106,14 +107,14 @@ class _BattleScreenState extends State<BattleScreen> {
     // Process Events for UI FX
     for (var event in nextState.lastTurnEvents) {
       bool isPlayerTarget = event.targetId == 'player';
-      Color color = Colors.white;
+      Color color = MGColors.textHighEmphasis;
       String text = event.value.toString();
 
       if (event.type == BattleEventType.damage) {
-        color = Colors.red;
+        color = MGColors.error;
         text = "-${event.value}";
       } else if (event.type == BattleEventType.heal) {
-        color = Colors.green;
+        color = MGColors.success;
         text = "+${event.value}";
 
         _addFloatingText(text, color, isPlayerTarget);
@@ -268,11 +269,11 @@ class _BattleScreenState extends State<BattleScreen> {
           const SizedBox(height: 8),
           LinearProgressIndicator(
             value: hero.stats.hp / hero.stats.maxHp,
-            backgroundColor: Colors.white,
+            backgroundColor: MGColors.textHighEmphasis,
             valueColor: AlwaysStoppedAnimation<Color>(
               hero.stats.hp > hero.stats.maxHp * 0.3
-                  ? Colors.green
-                  : Colors.red,
+                  ? MGColors.success
+                  : MGColors.error,
             ),
           ),
           const SizedBox(height: 4),

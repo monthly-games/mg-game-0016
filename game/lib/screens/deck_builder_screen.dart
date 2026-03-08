@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/cards/card_collection.dart';
 import '../models/card.dart' as model;
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class DeckBuilderScreen extends StatelessWidget {
   const DeckBuilderScreen({super.key});
@@ -114,7 +115,7 @@ class DeckBuilderScreen extends StatelessWidget {
                                           "$available",
                                           style: const TextStyle(
                                             fontSize: 12,
-                                            color: Colors.white,
+                                            color: MGColors.textHighEmphasis,
                                           ),
                                         ),
                                       ),

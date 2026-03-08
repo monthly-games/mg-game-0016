@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/meta/quest_manager.dart';
 import '../models/quest.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class QuestScreen extends StatefulWidget {
   const QuestScreen({super.key});
@@ -68,7 +69,7 @@ class _QuestScreenState extends State<QuestScreen> {
             LinearProgressIndicator(
               value: (quest.currentValue / quest.targetValue).clamp(0.0, 1.0),
               backgroundColor: Colors.grey[800],
-              color: isCompleted ? Colors.green : Colors.blue,
+              color: isCompleted ? MGColors.success : MGColors.info,
             ),
             const SizedBox(height: 4),
             Row(
@@ -76,7 +77,7 @@ class _QuestScreenState extends State<QuestScreen> {
               children: [
                 Text("${quest.currentValue} / ${quest.targetValue}"),
                 if (isClaimed)
-                  const Text("Claimed", style: TextStyle(color: Colors.green))
+                  const Text("Claimed", style: TextStyle(color: MGColors.success))
                 else if (isCompleted)
                   ElevatedButton(
                     onPressed: () => manager.claimReward(quest.id),

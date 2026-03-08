@@ -91,7 +91,7 @@ class MGCardBattleHud extends StatelessWidget {
             Text(
               stageName!,
               style: MGTextStyles.buttonMedium.copyWith(
-                color: Colors.white,
+                color: MGColors.textHighEmphasis,
               ),
             ),
             const SizedBox(width: MGSpacing.sm),
@@ -107,7 +107,7 @@ class MGCardBattleHud extends StatelessWidget {
           Text(
             'Turn $turn',
             style: MGTextStyles.buttonMedium.copyWith(
-              color: Colors.white,
+              color: MGColors.textHighEmphasis,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -131,7 +131,7 @@ class MGCardBattleHud extends StatelessWidget {
           _buildCardCounter(
             icon: Icons.layers,
             count: deckCount,
-            color: Colors.blue,
+            color: MGColors.info,
             label: 'Deck',
           ),
           const SizedBox(width: MGSpacing.md),
@@ -139,7 +139,7 @@ class MGCardBattleHud extends StatelessWidget {
           _buildCardCounter(
             icon: Icons.style,
             count: handCount,
-            color: Colors.green,
+            color: MGColors.success,
             label: 'Hand',
           ),
           const SizedBox(width: MGSpacing.md),
@@ -147,7 +147,7 @@ class MGCardBattleHud extends StatelessWidget {
           _buildCardCounter(
             icon: Icons.delete_outline,
             count: discardCount,
-            color: Colors.grey,
+            color: MGColors.common,
             label: 'Discard',
           ),
         ],
@@ -169,7 +169,7 @@ class MGCardBattleHud extends StatelessWidget {
         Text(
           count.toString(),
           style: MGTextStyles.buttonMedium.copyWith(
-            color: Colors.white,
+            color: MGColors.textHighEmphasis,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -186,7 +186,7 @@ class MGCardBattleHud extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.blue.withValues(alpha: 0.8),
+            MGColors.info.withValues(alpha: 0.8),
             Colors.purple.withValues(alpha: 0.6),
           ],
         ),
@@ -194,7 +194,7 @@ class MGCardBattleHud extends StatelessWidget {
         border: Border.all(color: Colors.cyan, width: 2),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withValues(alpha: 0.4),
+            color: MGColors.info.withValues(alpha: 0.4),
             blurRadius: 12,
             spreadRadius: 2,
           ),
@@ -248,12 +248,12 @@ class MGCardBattleHud extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.skip_next, color: Colors.white, size: 20),
+            const Icon(Icons.skip_next, color: MGColors.textHighEmphasis, size: 20),
             const SizedBox(width: MGSpacing.xs),
             Text(
               'END TURN',
               style: MGTextStyles.buttonMedium.copyWith(
-                color: Colors.white,
+                color: MGColors.textHighEmphasis,
                 fontWeight: FontWeight.bold,
               ),
             ),

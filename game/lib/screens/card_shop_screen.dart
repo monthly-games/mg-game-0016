@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 import '../models/card.dart' as model;
 import '../features/cards/card_collection.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class CardShopScreen extends StatelessWidget {
   const CardShopScreen({super.key});
@@ -35,7 +36,7 @@ class CardShopScreen extends StatelessWidget {
                       cost: 100,
                       currencyType: 'Gold',
                       icon: Icons.card_giftcard,
-                      color: Colors.grey,
+                      color: MGColors.common,
                       onPurchase: () =>
                           _openPack(context, collection, 100, 'gold'),
                       canAfford: collection.gold >= 100,
@@ -48,7 +49,7 @@ class CardShopScreen extends StatelessWidget {
                       cost: 50,
                       currencyType: 'Crystals',
                       icon: Icons.stars,
-                      color: Colors.blue,
+                      color: MGColors.info,
                       onPurchase: () =>
                           _openPack(context, collection, 50, 'crystal'),
                       canAfford: collection.crystals >= 50,
@@ -61,7 +62,7 @@ class CardShopScreen extends StatelessWidget {
                       cost: 150,
                       currencyType: 'Crystals',
                       icon: Icons.diamond,
-                      color: Colors.orange,
+                      color: MGColors.warning,
                       onPurchase: () => _openPack(
                         context,
                         collection,
@@ -199,7 +200,7 @@ class CardShopScreen extends StatelessWidget {
                 backgroundColor: canAfford
                     ? AppColors.primary
                     : AppColors.textDisabled,
-                foregroundColor: Colors.white,
+                foregroundColor: MGColors.textHighEmphasis,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
                   vertical: 12,
@@ -268,7 +269,7 @@ class CardShopScreen extends StatelessWidget {
         backgroundColor: AppColors.surface,
         title: const Text(
           'Pack Opened!',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: MGColors.textHighEmphasis),
         ),
         content: SizedBox(
           width: double.maxFinite,
@@ -338,13 +339,13 @@ class CardShopScreen extends StatelessWidget {
   Color _getRarityColor(CardRarity rarity) {
     switch (rarity) {
       case CardRarity.common:
-        return Colors.grey;
+        return MGColors.common;
       case CardRarity.rare:
-        return Colors.blue;
+        return MGColors.info;
       case CardRarity.epic:
         return Colors.purple;
       case CardRarity.legendary:
-        return Colors.orange;
+        return MGColors.warning;
     }
   }
 

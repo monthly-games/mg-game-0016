@@ -4,6 +4,7 @@ import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 import '../features/campaign/campaign_manager.dart';
 import '../models/level_data.dart';
 import 'battle_screen.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class CampaignScreen extends StatelessWidget {
   const CampaignScreen({super.key});
@@ -64,7 +65,7 @@ class CampaignScreen extends StatelessWidget {
       enabled: isUnlocked,
       leading: Icon(
         isUnlocked ? Icons.location_on : Icons.lock,
-        color: isUnlocked ? AppColors.primary : Colors.grey,
+        color: isUnlocked ? AppColors.primary : MGColors.common,
       ),
       title: Text(stage.name),
       subtitle: Text(stage.description),
@@ -73,7 +74,7 @@ class CampaignScreen extends StatelessWidget {
               onPressed: () => _startStage(context, stage),
               child: const Text('Battle'),
             )
-          : const Text('Locked', style: TextStyle(color: Colors.grey)),
+          : const Text('Locked', style: TextStyle(color: MGColors.common)),
     );
   }
 

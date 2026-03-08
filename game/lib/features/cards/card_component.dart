@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'card_data.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
   final CardData data;
@@ -55,7 +56,7 @@ class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
         (size / 2).toOffset(),
         localOrigin.toOffset(),
         Paint()
-          ..color = Colors.white.withValues(alpha: 0.5)
+          ..color = MGColors.textHighEmphasis.withValues(alpha: 0.5)
           ..strokeWidth = 3
           ..style = PaintingStyle.stroke
           ..strokeCap = StrokeCap.round,
@@ -87,21 +88,21 @@ class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
         rrect,
         Paint()
           ..style = PaintingStyle.stroke
-          ..color = Colors.white
+          ..color = MGColors.textHighEmphasis
           ..strokeWidth = 2,
       );
     }
 
     // Cost (Top Left)
     final textPaint = TextPaint(
-      style: const TextStyle(color: Colors.white, fontSize: 16),
+      style: const TextStyle(color: MGColors.textHighEmphasis, fontSize: 16),
     );
     textPaint.render(canvas, "${data.cost}", Vector2(10, 10));
 
     // Name (Center)
     TextPaint(
       style: const TextStyle(
-        color: Colors.white,
+        color: MGColors.textHighEmphasis,
         fontWeight: FontWeight.bold,
         fontSize: 14,
       ),
@@ -115,7 +116,7 @@ class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
     // Value (Center Large)
     TextPaint(
       style: const TextStyle(
-        color: Colors.white,
+        color: MGColors.textHighEmphasis,
         fontSize: 32,
         fontWeight: FontWeight.bold,
       ),

@@ -9,6 +9,7 @@ import 'components/floating_text.dart';
 
 import 'package:mg_common_game/core/audio/audio_manager.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class BattleGame extends FlameGame {
   final DeckManager deckManager;
@@ -138,7 +139,7 @@ class BattleGame extends FlameGame {
         FloatingTextComponent(
           text: "Blocked!",
           position: Vector2(size.x / 2, size.y - 50),
-          color: Colors.grey,
+          color: MGColors.common,
         ),
       );
     }
@@ -151,7 +152,7 @@ class BattleGame extends FlameGame {
         FloatingTextComponent(
           text: "GAME OVER",
           position: Vector2(size.x / 2, size.y / 2),
-          color: Colors.red,
+          color: MGColors.error,
           fontSize: 48,
           lifeTime: 3.0,
         ),
