@@ -17,7 +17,6 @@ class MGCardBattleHud extends StatelessWidget {
   final String? stageName;
   final VoidCallback? onPause;
   final VoidCallback? onEndTurn;
-  final VoidCallback? onDailyHub;
 
   const MGCardBattleHud({
     super.key,
@@ -30,7 +29,6 @@ class MGCardBattleHud extends StatelessWidget {
     this.stageName,
     this.onPause,
     this.onEndTurn,
-    this.onDailyHub,
   });
 
   @override
@@ -47,13 +45,6 @@ class MGCardBattleHud extends StatelessWidget {
                 _buildTurnInfo(),
                 const Spacer(),
                 // 오른쪽: 일시정지
-                if (onDailyHub != null)
-                  MGIconButton(
-                    icon: Icons.calendar_today,
-                    onPressed: onDailyHub!,
-                    buttonSize: MGIconButtonSize.small,
-                  ),
-                const SizedBox(width: MGSpacing.xs),
                 if (onPause != null)
                   MGIconButton(
                     icon: Icons.pause,
