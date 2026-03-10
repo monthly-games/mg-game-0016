@@ -18,9 +18,6 @@ class MGCardBattleHud extends StatelessWidget {
   final VoidCallback? onPause;
   final VoidCallback? onEndTurn;
   final VoidCallback? onDailyHub;
-  final VoidCallback? onGuildWar;
-  final VoidCallback? onTournament;
-  final VoidCallback? onSeasonalEvent;
 
   const MGCardBattleHud({
     super.key,
@@ -34,9 +31,6 @@ class MGCardBattleHud extends StatelessWidget {
     this.onPause,
     this.onEndTurn,
     this.onDailyHub,
-    this.onGuildWar,
-    this.onTournament,
-    this.onSeasonalEvent,
   });
 
   @override
@@ -53,27 +47,6 @@ class MGCardBattleHud extends StatelessWidget {
                 _buildTurnInfo(),
                 const Spacer(),
                 // 오른쪽: 일시정지
-                if (onGuildWar != null)
-                  MGIconButton(
-                    icon: Icons.shield,
-                    onPressed: onGuildWar!,
-                    buttonSize: MGIconButtonSize.small,
-                  ),
-                const SizedBox(width: MGSpacing.xs),
-                if (onTournament != null)
-                  MGIconButton(
-                    icon: Icons.emoji_events,
-                    onPressed: onTournament!,
-                    buttonSize: MGIconButtonSize.small,
-                  ),
-                const SizedBox(width: MGSpacing.xs),
-                if (onSeasonalEvent != null)
-                  MGIconButton(
-                    icon: Icons.celebration,
-                    onPressed: onSeasonalEvent!,
-                    buttonSize: MGIconButtonSize.small,
-                  ),
-                const SizedBox(width: MGSpacing.xs),
                 if (onDailyHub != null)
                   MGIconButton(
                     icon: Icons.calendar_today,
