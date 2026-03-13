@@ -465,6 +465,27 @@ class HomeScreen extends StatelessWidget {
               onPressed: () => Navigator.pushNamed(context, '/quests'),
               child: const Text('Quests'),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/guild-war'),
+              icon: const Icon(Icons.shield),
+              label: const Text('Guild War'),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton.icon(
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/tournament'),
+              icon: const Icon(Icons.emoji_events),
+              label: const Text('Tournament'),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton.icon(
+              onPressed: () => Navigator.pushNamed(
+                  context, '/seasonal-event'),
+              icon: const Icon(Icons.celebration),
+              label: const Text('Seasonal Event'),
+            ),
           ],
         ),
       ),
