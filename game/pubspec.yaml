@@ -35,8 +35,9 @@ dependencies:
   get_it: 9.2.0
   equatable: ^2.0.5
   mg_common_game:
-    path: ../../../repos/mg-common-game
+    path: ../../../libs/mg_common_game
   flame: ^1.13.0
+  flame_spine: ^0.3.0+1
   uuid: ^4.3.3
   shared_preferences: ^2.2.2
 
@@ -72,6 +73,7 @@ flutter:
     - assets/audio/
     - assets/images/
     - assets/images/cards/
+    - assets/spine/characters/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
