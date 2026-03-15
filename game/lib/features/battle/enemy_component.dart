@@ -1,8 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
-class EnemyComponent extends PositionComponent with HasGameRef {
+class EnemyComponent extends PositionComponent with HasGameReference {
   double maxHp = 50;
   double currentHp = 50;
 
@@ -43,9 +42,9 @@ class EnemyComponent extends PositionComponent with HasGameRef {
     add(intentText);
 
     try {
-      _sprite = await gameRef.loadSprite('enemy_boss.png');
+      _sprite = await game.loadSprite('enemy_boss.png');
     } catch (e) {
-      print('Failed to load enemy sprite: $e');
+      debugPrint('Failed to load enemy sprite: $e');
     }
   }
 

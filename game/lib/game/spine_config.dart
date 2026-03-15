@@ -14,7 +14,7 @@ const kDeckWarriorMeta = SpineAssetMeta(
   atlasPath:
       'assets/spine/characters/deck_warrior/deck_warrior.atlas',
   skeletonPath:
-      'assets/spine/characters/deck_warrior/deck_warrior.skel',
+      'assets/spine/characters/deck_warrior/deck_warrior.json',
   animations: ['idle', 'walk', 'attack', 'hit'],
   defaultAnimation: 'idle',
   defaultMix: 0.2,
@@ -28,7 +28,7 @@ const kDeckSorcererMeta = SpineAssetMeta(
   atlasPath:
       'assets/spine/characters/deck_sorcerer/deck_sorcerer.atlas',
   skeletonPath:
-      'assets/spine/characters/deck_sorcerer/deck_sorcerer.skel',
+      'assets/spine/characters/deck_sorcerer/deck_sorcerer.json',
   animations: ['idle', 'walk', 'attack', 'hit'],
   defaultAnimation: 'idle',
   defaultMix: 0.2,
@@ -41,7 +41,7 @@ const kDeckRogueMeta = SpineAssetMeta(
   path: 'spine/characters/deck_rogue',
   atlasPath: 'assets/spine/characters/deck_rogue/deck_rogue.atlas',
   skeletonPath:
-      'assets/spine/characters/deck_rogue/deck_rogue.skel',
+      'assets/spine/characters/deck_rogue/deck_rogue.json',
   animations: ['idle', 'walk', 'attack', 'hit'],
   defaultAnimation: 'idle',
   defaultMix: 0.2,

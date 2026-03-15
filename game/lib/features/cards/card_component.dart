@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'card_data.dart';
 import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
-class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
+class CardComponent extends PositionComponent with DragCallbacks, HasGameReference {
   final CardData data;
   final Function(CardComponent) onPlay; // Callback when dropped to play
 
-  Vector2 _dragOffset = Vector2.zero();
   Vector2 _originalPosition = Vector2.zero();
   bool _isDragging = false;
   Sprite? _frameSprite;
@@ -41,9 +40,9 @@ class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
     }
 
     try {
-      _frameSprite = await gameRef.loadSprite(frameName);
+      _frameSprite = await game.loadSprite(frameName);
     } catch (e) {
-      print('Failed to load card frame $frameName: $e');
+      debugPrint('Failed to load card frame $frameName: $e');
     }
   }
 
@@ -148,7 +147,6 @@ class CardComponent extends PositionComponent with DragCallbacks, HasGameRef {
   @override
   void onDragStart(DragStartEvent event) {
     _isDragging = true;
-    _dragOffset = event.localPosition;
     priority = 100; // Bring to front
     super.onDragStart(event);
   }

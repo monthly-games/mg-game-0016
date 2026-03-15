@@ -71,7 +71,7 @@ class BattleGame extends FlameGame {
 
   void _tryPlayCard(CardComponent component) {
     if (component.data.cost > currentMana) {
-      print("Not enough mana!");
+      debugPrint("Not enough mana!");
       return;
     }
 
@@ -144,10 +144,10 @@ class BattleGame extends FlameGame {
       );
     }
 
-    print("Enemy dealt $damage damage! Player HP: $playerHp");
+    debugPrint("Enemy dealt $damage damage! Player HP: $playerHp");
 
     if (playerHp <= 0) {
-      print("Game Over");
+      debugPrint("Game Over");
       add(
         FloatingTextComponent(
           text: "GAME OVER",

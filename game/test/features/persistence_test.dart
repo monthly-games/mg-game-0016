@@ -38,7 +38,6 @@ void main() {
 
       SharedPreferences.setMockInitialValues({});
 
-      final collection = CardCollection();
       // Wait for init? _initialize is fire-and-forget in constructor.
       // In real app, we check isLoading. Tests might be flaky if we don't wait.
       // Let's rely on Future.delayed or just test logic methods if they don't depend on un-awaited future?

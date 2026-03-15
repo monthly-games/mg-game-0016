@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/player_data.dart';
+import 'package:flutter/foundation.dart';
 
 class SaveManager {
   static const String _playerDataKey = 'player_data';
@@ -29,7 +30,7 @@ class SaveManager {
       return PlayerData.fromJson(jsonMap);
     } catch (e) {
       // Handle corruption or upgrade issues
-      print("Error loading player data: $e");
+      debugPrint("Error loading player data: $e");
       return null;
     }
   }

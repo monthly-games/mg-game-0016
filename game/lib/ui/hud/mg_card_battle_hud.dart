@@ -1,9 +1,5 @@
+import 'package:mg_common_game/mg_common_game.dart';
 import 'package:flutter/material.dart';
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
-import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
-import 'package:mg_common_game/core/ui/typography/mg_text_styles.dart';
-import 'package:mg_common_game/core/ui/widgets/buttons/mg_icon_button.dart';
-import 'package:mg_common_game/core/ui/widgets/progress/mg_linear_progress.dart';
 
 /// MG-0016 Card Battle HUD
 /// 카드 배틀 게임용 HUD - 턴 정보, 덱/패/무덤 카운트, 마나 표시
@@ -85,7 +81,7 @@ class MGCardBattleHud extends StatelessWidget {
                   MGIconButton(
                     icon: Icons.pause,
                     onPressed: onPause!,
-                    size: MGIconButtonSize.small,
+                    buttonSize: MGIconButtonSize.small,
                   ),
               ],
             ),

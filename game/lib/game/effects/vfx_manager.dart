@@ -6,75 +6,75 @@ import 'package:flutter/material.dart';
 
 /// VFX Manager for Deckbuilding Heroes (MG-0016)
 /// Card Game + Auto-Battler + JRPG 게임 전용 이펙트 관리자
-class VfxManager extends Component with HasGameRef {
+class VfxManager extends Component with HasGameReference {
   VfxManager();
   final Random _random = Random();
 
   // Card Effects
   void showCardDraw(Vector2 position) {
-    gameRef.add(_createSparkleEffect(position: position, color: Colors.white, count: 10));
-    gameRef.add(_createBurstEffect(position: position, color: Colors.lightBlue.shade200, count: 8, speed: 50, lifespan: 0.4));
+    game.add(_createSparkleEffect(position: position, color: Colors.white, count: 10));
+    game.add(_createBurstEffect(position: position, color: Colors.lightBlue.shade200, count: 8, speed: 50, lifespan: 0.4));
   }
 
   void showCardPlay(Vector2 position, Color cardColor) {
-    gameRef.add(_createExplosionEffect(position: position, color: cardColor, count: 20, radius: 50));
-    gameRef.add(_createGroundCircle(position: position, color: cardColor));
+    game.add(_createExplosionEffect(position: position, color: cardColor, count: 20, radius: 50));
+    game.add(_createGroundCircle(position: position, color: cardColor));
   }
 
   void showCardUpgrade(Vector2 position) {
-    gameRef.add(_createExplosionEffect(position: position, color: Colors.amber, count: 25, radius: 55));
-    gameRef.add(_createSparkleEffect(position: position, color: Colors.yellow, count: 15));
-    gameRef.add(_UpgradeText(position: position));
+    game.add(_createExplosionEffect(position: position, color: Colors.amber, count: 25, radius: 55));
+    game.add(_createSparkleEffect(position: position, color: Colors.yellow, count: 15));
+    game.add(_UpgradeText(position: position));
   }
 
   void showDeckShuffle(Vector2 position) {
     for (int i = 0; i < 5; i++) {
       Future.delayed(Duration(milliseconds: i * 60), () {
         if (!isMounted) return;
-        gameRef.add(_createSparkleEffect(position: position + Vector2((_random.nextDouble() - 0.5) * 50, (_random.nextDouble() - 0.5) * 30), color: Colors.white, count: 5));
+        game.add(_createSparkleEffect(position: position + Vector2((_random.nextDouble() - 0.5) * 50, (_random.nextDouble() - 0.5) * 30), color: Colors.white, count: 5));
       });
     }
   }
 
   // Battle Effects
   void showAttackHit(Vector2 position, {Color color = Colors.white, bool isCritical = false}) {
-    gameRef.add(_createHitEffect(position: position, color: color, isCritical: isCritical));
-    if (isCritical) gameRef.add(_createSparkleEffect(position: position, color: Colors.yellow, count: 12));
+    game.add(_createHitEffect(position: position, color: color, isCritical: isCritical));
+    if (isCritical) game.add(_createSparkleEffect(position: position, color: Colors.yellow, count: 12));
   }
 
   void showDamageNumber(Vector2 position, int damage, {bool isCritical = false}) {
-    gameRef.add(_DamageNumber(position: position, damage: damage, isCritical: isCritical));
+    game.add(_DamageNumber(position: position, damage: damage, isCritical: isCritical));
   }
 
   void showSkillActivation(Vector2 position, Color skillColor) {
-    gameRef.add(_createConvergeEffect(position: position, color: skillColor));
-    gameRef.add(_createGroundCircle(position: position, color: skillColor));
+    game.add(_createConvergeEffect(position: position, color: skillColor));
+    game.add(_createGroundCircle(position: position, color: skillColor));
   }
 
   void showUnitDeath(Vector2 position) {
-    gameRef.add(_createExplosionEffect(position: position, color: Colors.red, count: 18, radius: 45));
-    gameRef.add(_createSmokeEffect(position: position, count: 5));
+    game.add(_createExplosionEffect(position: position, color: Colors.red, count: 18, radius: 45));
+    game.add(_createSmokeEffect(position: position, count: 5));
   }
 
   // Story/Chapter Effects
   void showChapterComplete(Vector2 position) {
-    gameRef.add(_createExplosionEffect(position: position, color: Colors.amber, count: 35, radius: 70));
+    game.add(_createExplosionEffect(position: position, color: Colors.amber, count: 35, radius: 70));
     for (int i = 0; i < 5; i++) {
       Future.delayed(Duration(milliseconds: i * 100), () {
         if (!isMounted) return;
-        gameRef.add(_createSparkleEffect(position: position + Vector2((_random.nextDouble() - 0.5) * 80, (_random.nextDouble() - 0.5) * 60), color: Colors.yellow, count: 8));
+        game.add(_createSparkleEffect(position: position + Vector2((_random.nextDouble() - 0.5) * 80, (_random.nextDouble() - 0.5) * 60), color: Colors.yellow, count: 8));
       });
     }
-    gameRef.add(_ChapterText(position: position));
+    game.add(_ChapterText(position: position));
   }
 
   void showRewardClaim(Vector2 position) {
-    gameRef.add(_createCoinEffect(position: position, count: 12));
-    gameRef.add(_createSparkleEffect(position: position, color: Colors.amber, count: 10));
+    game.add(_createCoinEffect(position: position, count: 12));
+    game.add(_createSparkleEffect(position: position, color: Colors.amber, count: 10));
   }
 
   void showNumberPopup(Vector2 position, String text, {Color color = Colors.white}) {
-    gameRef.add(_NumberPopup(position: position, text: text, color: color));
+    game.add(_NumberPopup(position: position, text: text, color: color));
   }
 
   // Private generators
@@ -123,7 +123,11 @@ class VfxManager extends Component with HasGameRef {
       final angle = _random.nextDouble() * 2 * pi; final speed = 45 + _random.nextDouble() * 35;
       return AcceleratedParticle(position: position.clone(), speed: Vector2(cos(angle), sin(angle)) * speed, acceleration: Vector2(0, 35), child: ComputedParticle(renderer: (canvas, particle) {
         final opacity = (1.0 - particle.progress).clamp(0.0, 1.0); final size = 3 * (1.0 - particle.progress * 0.5);
-        final path = Path(); for (int j = 0; j < 4; j++) { final a = (j * pi / 2); if (j == 0) path.moveTo(cos(a) * size, sin(a) * size); else path.lineTo(cos(a) * size, sin(a) * size); } path.close();
+        final path = Path(); for (int j = 0; j < 4; j++) { final a = (j * pi / 2); if (j == 0) {
+          path.moveTo(cos(a) * size, sin(a) * size);
+        } else {
+          path.lineTo(cos(a) * size, sin(a) * size);
+        } } path.close();
         canvas.drawPath(path, Paint()..color = color.withValues(alpha: opacity));
       }));
     }));

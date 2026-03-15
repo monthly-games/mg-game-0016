@@ -213,7 +213,6 @@ class _BattlePassScreenState extends State<BattlePassScreen>
 
   // ── Header: season info, XP bar, premium button ──────────
   Widget _buildHeader(BPSeasonConfig season) {
-    final state = _bpManager.state;
     final tier = season.getTier(_bpManager.currentLevel);
     final requiredExp = tier?.requiredExp ?? season.expPerLevel;
 
@@ -265,7 +264,7 @@ class _BattlePassScreenState extends State<BattlePassScreen>
   // ── Tab bar: Rewards | Missions ──────────────────────────
   Widget _buildTabBar() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
             color: MGColors.border,
@@ -311,12 +310,12 @@ class _BattlePassScreenState extends State<BattlePassScreen>
           ),
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.lock_open,
                 color: MGColors.textMediumEmphasis,
                 size: 16,
               ),
-              SizedBox(width: MGSpacing.xs),
+              const SizedBox(width: MGSpacing.xs),
               Text(
                 'FREE',
                 style: MGTextStyles.caption.copyWith(
@@ -324,12 +323,12 @@ class _BattlePassScreenState extends State<BattlePassScreen>
                 ),
               ),
               const Spacer(),
-              Icon(
+              const Icon(
                 Icons.star,
                 color: MGColors.gold,
                 size: 16,
               ),
-              SizedBox(width: MGSpacing.xs),
+              const SizedBox(width: MGSpacing.xs),
               Text(
                 'PREMIUM',
                 style: MGTextStyles.caption.copyWith(
@@ -376,7 +375,7 @@ class _BattlePassScreenState extends State<BattlePassScreen>
                   ),
                 ],
               ),
-              SizedBox(height: MGSpacing.xs),
+              const SizedBox(height: MGSpacing.xs),
               MGLinearProgress(
                 value: _bpManager.currentLevel / season.maxLevel,
                 height: 8,
@@ -419,7 +418,7 @@ class _BattlePassScreenState extends State<BattlePassScreen>
     }
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(MGSpacing.md),
+      padding: const EdgeInsets.all(MGSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -432,7 +431,7 @@ class _BattlePassScreenState extends State<BattlePassScreen>
             missionProgress: missionProgressMap,
             claimedMissions: claimedMissions,
           ),
-          SizedBox(height: MGSpacing.lg),
+          const SizedBox(height: MGSpacing.lg),
           // Weekly Missions
           _buildMissionSection(
             title: 'Weekly Missions',
@@ -461,7 +460,7 @@ class _BattlePassScreenState extends State<BattlePassScreen>
         Row(
           children: [
             Icon(icon, color: iconColor, size: 20),
-            SizedBox(width: MGSpacing.xs),
+            const SizedBox(width: MGSpacing.xs),
             Text(
               title,
               style: MGTextStyles.h3.copyWith(
@@ -477,7 +476,7 @@ class _BattlePassScreenState extends State<BattlePassScreen>
             ),
           ],
         ),
-        SizedBox(height: MGSpacing.sm),
+        const SizedBox(height: MGSpacing.sm),
         BattlePassMissionList(
           missions: missions,
           missionProgress: missionProgress,
