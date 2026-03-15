@@ -1,15 +1,6 @@
+import 'package:mg_common_game/mg_common_game.dart';
 import 'package:flutter/material.dart';
-import 'package:mg_common_game/core/ui/screens/seasonal_event_screen.dart';
-import 'package:mg_common_game/core/ui/screens/tournament_screen.dart';
-import 'package:mg_common_game/core/ui/screens/guild_war_screen.dart';
-import 'package:mg_common_game/systems/events/seasonal_content_manager.dart';
-import 'package:mg_common_game/systems/competitive/tournament_manager.dart';
-import 'package:mg_common_game/systems/social/guild_war_manager.dart';
 import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
-import 'package:mg_common_game/core/ui/screens/daily_hub_screen.dart';
-import 'package:mg_common_game/systems/retention/daily_challenge_manager.dart';
-import 'package:mg_common_game/systems/retention/streak_manager.dart';
-import 'package:mg_common_game/systems/retention/login_rewards_manager.dart';
 import 'package:mg_common_game/systems/gacha/gacha_pool.dart';
 import 'package:mg_common_game/systems/gacha/gacha_manager.dart';
 import 'package:mg_common_game/systems/battlepass/battlepass_config.dart';
@@ -56,8 +47,8 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CardCollection()),
-        ChangeNotifierProvider<mg_systems.CollectionManager>.value(
-          value: GetIt.I<mg_systems.CollectionManager>(),
+        ChangeNotifierProvider<CollectionManager>.value(
+          value: GetIt.I<CollectionManager>(),
         ),
         ProxyProvider<CardCollection, CampaignManager>(
           update: (context, collection, previous) =>
@@ -74,287 +65,156 @@ void main() async {
 }
 
 void _setupDI() {
-  if (!GetIt.I.isRegistered<AudioManager>()) {
-    GetIt.I.registerSingleton<AudioManager>(AudioManager());
+  final di = GetIt.I;
+
+  if (!di.isRegistered<AudioManager>()) {
+    di.registerSingleton<AudioManager>(AudioManager());
   }
-  if (!GetIt.I.isRegistered<CollectionManager>()) {
-    GetIt.I.registerSingleton<CollectionManager>(
-  // DailyQuest 시스템
-  GetIt.I.registerSingleton(DailyQuestManager());
-  // Achievement 시스템
-  GetIt.I.registerSingleton(AchievementManager());
-  // BattlePass 시스템
-  GetIt.I.registerSingleton(BattlePassManager());
-  // Gacha 시스템
-  GetIt.I.registerSingleton(GachaManager());
-  // ── Retention Systems for DailyHub ────────────────────────
-  if (!GetIt.I.isRegistered<LoginRewardsManager>()) {
-    GetIt.I.registerSingleton(LoginRewardsManager());
+  if (!di.isRegistered<CollectionManager>()) {
+    di.registerSingleton<CollectionManager>(CollectionManager());
   }
-  if (!GetIt.I.isRegistered<StreakManager>()) {
-    GetIt.I.registerSingleton(StreakManager());
+  if (!di.isRegistered<DailyQuestManager>()) {
+    di.registerSingleton(DailyQuestManager());
   }
-  if (!GetIt.I.isRegistered<DailyChallengeManager>()) {
-    GetIt.I.registerSingleton(DailyChallengeManager());
-}
-  // ── P3 Engine Systems ─────────────────────────────────────
-  if (!GetIt.I.isRegistered<GuildWarManager>()) {
-    GetIt.I.registerSingleton(GuildWarManager());
+  if (!di.isRegistered<AchievementManager>()) {
+    di.registerSingleton(AchievementManager());
   }
-  if (!GetIt.I.isRegistered<TournamentManager>()) {
-    GetIt.I.registerSingleton(TournamentManager());
+  if (!di.isRegistered<BattlePassManager>()) {
+    di.registerSingleton(BattlePassManager());
   }
-  if (!GetIt.I.isRegistered<SeasonalContentManager>()) {
-    GetIt.I.registerSingleton(SeasonalContentManager());
+  if (!di.isRegistered<GachaManager>()) {
+    di.registerSingleton(GachaManager());
   }
+  if (!di.isRegistered<LoginRewardsManager>()) {
+    di.registerSingleton(LoginRewardsManager());
+  }
+  if (!di.isRegistered<StreakManager>()) {
+    di.registerSingleton(StreakManager());
+  }
+  if (!di.isRegistered<DailyChallengeManager>()) {
+    di.registerSingleton(DailyChallengeManager());
+  }
+  if (!di.isRegistered<GuildWarManager>()) {
+    di.registerSingleton(GuildWarManager());
+  }
+  if (!di.isRegistered<TournamentManager>()) {
+    di.registerSingleton(TournamentManager());
+  }
+  if (!di.isRegistered<SeasonalContentManager>()) {
+    di.registerSingleton(SeasonalContentManager());
+  }
+
   _setupGacha();
   _setupBattlePass();
   _registerAchievements();
   _registerDailyQuests();
-      CollectionManager(),
-    );
-  }
 }
 
 void _registerCollections() {
-  final collectionManager = GetIt.I<mg_systems.CollectionManager>();
+  final collectionManager = GetIt.I<CollectionManager>();
 
-  // Register card collection (7 cards from mock_data)
-  final cardItems = [
-    mg_systems.CollectionItem(
-      id: 'c1',
-      name: 'Strike',
-      description: 'Deal 10 damage',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-    mg_systems.CollectionItem(
-      id: 'c2',
-      name: 'Defend',
-      description: 'Gain 5 block',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-    mg_systems.CollectionItem(
-      id: 'c3',
-      name: 'Heavy Hit',
-      description: 'Deal 25 damage',
-      rarity: mg_systems.CollectionRarity.rare,
-    ),
-    mg_systems.CollectionItem(
-      id: 'c4',
-      name: 'Quick Slash',
-      description: 'Deal 6 damage',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-    mg_systems.CollectionItem(
-      id: 'c5',
-      name: 'Holy Light',
-      description: 'Heal 20 HP',
-      rarity: mg_systems.CollectionRarity.rare,
-    ),
-    mg_systems.CollectionItem(
-      id: 'c6',
-      name: 'Fireball',
-      description: 'Deal 18 damage',
-      rarity: mg_systems.CollectionRarity.rare,
-    ),
-    mg_systems.CollectionItem(
-      id: 'c7',
-      name: 'Meteor',
-      description: 'Deal 50 damage',
-      rarity: mg_systems.CollectionRarity.legendary,
-    ),
-  ];
-
-  final cardCollection = mg_systems.Collection(
+  final cardCollection = Collection(
     id: 'card_collection',
     name: 'Card Collection',
     description: 'Collect all battle cards',
-    items: cardItems,
     category: 'cards',
-    milestoneRewards: {
-      25: mg_systems.CollectionReward(
-        id: 'card_25',
-        name: '25% Reward',
-        description: 'Unlocked 25% of cards',
+    items: const [
+      CollectionItem(
+        id: 'c1',
+        name: 'Strike',
+        description: 'Deal 10 damage',
+        rarity: CollectionRarity.common,
       ),
-      50: mg_systems.CollectionReward(
-        id: 'card_50',
-        name: '50% Reward',
-        description: 'Unlocked 50% of cards',
+      CollectionItem(
+        id: 'c2',
+        name: 'Defend',
+        description: 'Gain 5 block',
+        rarity: CollectionRarity.common,
       ),
-      75: mg_systems.CollectionReward(
-        id: 'card_75',
-        name: '75% Reward',
-        description: 'Unlocked 75% of cards',
+      CollectionItem(
+        id: 'c3',
+        name: 'Heavy Hit',
+        description: 'Deal 25 damage',
+        rarity: CollectionRarity.rare,
       ),
+      CollectionItem(
+        id: 'c4',
+        name: 'Quick Slash',
+        description: 'Deal 6 damage',
+        rarity: CollectionRarity.common,
+      ),
+      CollectionItem(
+        id: 'c5',
+        name: 'Holy Light',
+        description: 'Heal 20 HP',
+        rarity: CollectionRarity.epic,
+      ),
+      CollectionItem(
+        id: 'c6',
+        name: 'Fireball',
+        description: 'Deal 18 damage',
+        rarity: CollectionRarity.rare,
+      ),
+      CollectionItem(
+        id: 'c7',
+        name: 'Meteor',
+        description: 'Deal 50 damage',
+        rarity: CollectionRarity.legendary,
+      ),
+    ],
+    milestoneRewards: const {
+      25: CollectionReward(type: RewardType.gold, amount: 200),
+      50: CollectionReward(type: RewardType.gold, amount: 400),
+      75: CollectionReward(type: RewardType.gems, amount: 10),
     },
-    completionReward: mg_systems.CollectionReward(
-      id: 'card_complete',
-      name: 'Complete Collection',
-      description: 'Unlocked all cards!',
-    ),
+    completionReward: const CollectionReward(type: RewardType.gems, amount: 25),
   );
 
-  // Register gacha collection (20 items from gacha_adapter)
-  final gachaItems = [
-    // UR (2 items)
-    mg_systems.CollectionItem(
-      id: 'ur_cardbattle_001',
-      name: '전설의 BattleCard',
-      description: 'Legendary battle card',
-      rarity: mg_systems.CollectionRarity.mythic,
-    ),
-    mg_systems.CollectionItem(
-      id: 'ur_cardbattle_002',
-      name: '신화의 BattleCard',
-      description: 'Mythic battle card',
-      rarity: mg_systems.CollectionRarity.mythic,
-    ),
-    // SSR (3 items)
-    mg_systems.CollectionItem(
-      id: 'ssr_cardbattle_001',
-      name: '영웅의 BattleCard',
-      description: 'Hero battle card',
-      rarity: mg_systems.CollectionRarity.legendary,
-    ),
-    mg_systems.CollectionItem(
-      id: 'ssr_cardbattle_002',
-      name: '고대의 BattleCard',
-      description: 'Ancient battle card',
-      rarity: mg_systems.CollectionRarity.legendary,
-    ),
-    mg_systems.CollectionItem(
-      id: 'ssr_cardbattle_003',
-      name: '황금의 BattleCard',
-      description: 'Golden battle card',
-      rarity: mg_systems.CollectionRarity.legendary,
-    ),
-    // SR (4 items)
-    mg_systems.CollectionItem(
-      id: 'sr_cardbattle_001',
-      name: '희귀한 BattleCard A',
-      description: 'Rare battle card A',
-      rarity: mg_systems.CollectionRarity.epic,
-    ),
-    mg_systems.CollectionItem(
-      id: 'sr_cardbattle_002',
-      name: '희귀한 BattleCard B',
-      description: 'Rare battle card B',
-      rarity: mg_systems.CollectionRarity.epic,
-    ),
-    mg_systems.CollectionItem(
-      id: 'sr_cardbattle_003',
-      name: '희귀한 BattleCard C',
-      description: 'Rare battle card C',
-      rarity: mg_systems.CollectionRarity.epic,
-    ),
-    mg_systems.CollectionItem(
-      id: 'sr_cardbattle_004',
-      name: '희귀한 BattleCard D',
-      description: 'Rare battle card D',
-      rarity: mg_systems.CollectionRarity.epic,
-    ),
-    // R (5 items)
-    mg_systems.CollectionItem(
-      id: 'r_cardbattle_001',
-      name: '우수한 BattleCard A',
-      description: 'Uncommon battle card A',
-      rarity: mg_systems.CollectionRarity.rare,
-    ),
-    mg_systems.CollectionItem(
-      id: 'r_cardbattle_002',
-      name: '우수한 BattleCard B',
-      description: 'Uncommon battle card B',
-      rarity: mg_systems.CollectionRarity.rare,
-    ),
-    mg_systems.CollectionItem(
-      id: 'r_cardbattle_003',
-      name: '우수한 BattleCard C',
-      description: 'Uncommon battle card C',
-      rarity: mg_systems.CollectionRarity.rare,
-    ),
-    mg_systems.CollectionItem(
-      id: 'r_cardbattle_004',
-      name: '우수한 BattleCard D',
-      description: 'Uncommon battle card D',
-      rarity: mg_systems.CollectionRarity.rare,
-    ),
-    mg_systems.CollectionItem(
-      id: 'r_cardbattle_005',
-      name: '우수한 BattleCard E',
-      description: 'Uncommon battle card E',
-      rarity: mg_systems.CollectionRarity.rare,
-    ),
-    // N (6 items)
-    mg_systems.CollectionItem(
-      id: 'n_cardbattle_001',
-      name: '일반 BattleCard A',
-      description: 'Common battle card A',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-    mg_systems.CollectionItem(
-      id: 'n_cardbattle_002',
-      name: '일반 BattleCard B',
-      description: 'Common battle card B',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-    mg_systems.CollectionItem(
-      id: 'n_cardbattle_003',
-      name: '일반 BattleCard C',
-      description: 'Common battle card C',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-    mg_systems.CollectionItem(
-      id: 'n_cardbattle_004',
-      name: '일반 BattleCard D',
-      description: 'Common battle card D',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-    mg_systems.CollectionItem(
-      id: 'n_cardbattle_005',
-      name: '일반 BattleCard E',
-      description: 'Common battle card E',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-    mg_systems.CollectionItem(
-      id: 'n_cardbattle_006',
-      name: '일반 BattleCard F',
-      description: 'Common battle card F',
-      rarity: mg_systems.CollectionRarity.common,
-    ),
-  ];
-
-  final gachaCollection = mg_systems.Collection(
+  final gachaCollection = Collection(
     id: 'gacha_collection',
     name: 'Gacha Collection',
     description: 'Collect all gacha cards',
-    items: gachaItems,
     category: 'gacha',
-    milestoneRewards: {
-      25: mg_systems.CollectionReward(
-        id: 'gacha_25',
-        name: '25% Reward',
-        description: 'Unlocked 25% of gacha cards',
+    items: const [
+      CollectionItem(
+        id: 'ur_cardbattle_001',
+        name: 'Legendary BattleCard',
+        description: 'Top-tier battle card',
+        rarity: CollectionRarity.legendary,
       ),
-      50: mg_systems.CollectionReward(
-        id: 'gacha_50',
-        name: '50% Reward',
-        description: 'Unlocked 50% of gacha cards',
+      CollectionItem(
+        id: 'ssr_cardbattle_001',
+        name: 'Hero BattleCard',
+        description: 'High-tier battle card',
+        rarity: CollectionRarity.epic,
       ),
-      75: mg_systems.CollectionReward(
-        id: 'gacha_75',
-        name: '75% Reward',
-        description: 'Unlocked 75% of gacha cards',
+      CollectionItem(
+        id: 'sr_cardbattle_001',
+        name: 'Rare BattleCard',
+        description: 'Mid-tier battle card',
+        rarity: CollectionRarity.rare,
       ),
+      CollectionItem(
+        id: 'r_cardbattle_001',
+        name: 'Uncommon BattleCard',
+        description: 'Entry-tier battle card',
+        rarity: CollectionRarity.uncommon,
+      ),
+      CollectionItem(
+        id: 'n_cardbattle_001',
+        name: 'Common BattleCard',
+        description: 'Base-tier battle card',
+        rarity: CollectionRarity.common,
+      ),
+    ],
+    milestoneRewards: const {
+      25: CollectionReward(type: RewardType.gold, amount: 300),
+      50: CollectionReward(type: RewardType.gold, amount: 600),
+      75: CollectionReward(type: RewardType.gems, amount: 15),
     },
-    completionReward: mg_systems.CollectionReward(
-      id: 'gacha_complete',
-      name: 'Complete Gacha Collection',
-      description: 'Unlocked all gacha cards!',
-    ),
+    completionReward: const CollectionReward(type: RewardType.gems, amount: 30),
   );
 
-  // Register both collections
   collectionManager.registerCollections([cardCollection, gachaCollection]);
 
   // Setup callbacks with haptic feedback
@@ -397,7 +257,9 @@ class DeckGameApp extends StatelessWidget {
         '/battle': (context) => const BattleScreen(),
         '/campaign': (context) => const CampaignScreen(),
         '/quests': (context) => const QuestScreen(),
-        '/collections': (context) => const CollectionsScreen(),
+        '/collections': (context) => CollectionScreen(
+          collectionManager: GetIt.I<CollectionManager>(),
+        ),
         '/battlepass': (_) => const BattlePassScreen(),
         '/gacha': (_) => const GachaScreen(),
         '/daily-quests': (_) => const DailyQuestScreen(),
@@ -600,14 +462,14 @@ void _setupGacha() {
       )),
 
       // SSR (2.7%)
-      GachaItem(
+      const GachaItem(
         id: 'ssr_item_1',
         nameKr: '울트라레어 아이템 1',
         rarity: GachaRarity.ultraRare,
       ),
 
       // UR (0.3%)
-      GachaItem(
+      const GachaItem(
         id: 'ur_item_1',
         nameKr: '레전더리 아이템 1',
         rarity: GachaRarity.legendary,

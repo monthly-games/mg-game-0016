@@ -24,7 +24,7 @@ class DeckScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.swords),
+        child: const Icon(Icons.sports_martial_arts),
         onPressed: () {
           Navigator.pushNamed(context, '/battle');
         },

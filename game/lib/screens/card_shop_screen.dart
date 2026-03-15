@@ -4,6 +4,7 @@ import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 import '../models/card.dart' as model;
 import '../features/cards/card_collection.dart';
 import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
+import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';
 
 class CardShopScreen extends StatelessWidget {
   const CardShopScreen({super.key});
@@ -68,7 +69,7 @@ class CardShopScreen extends StatelessWidget {
                         collection,
                         150,
                         'crystal',
-                        guaranteed: CardRarity.epic,
+                        guaranteed: model.CardRarity.epic,
                       ),
                       canAfford: collection.crystals >= 150,
                     ),
@@ -138,7 +139,7 @@ class CardShopScreen extends StatelessWidget {
             ),
             Text(
               '$amount',
-              style: AppTextStyles.header3.copyWith(color: color),
+              style: AppTextStyles.subHeader.copyWith(color: color),
             ),
           ],
         ),
@@ -185,7 +186,7 @@ class CardShopScreen extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: AppTextStyles.header3.copyWith(color: color),
+                    style: AppTextStyles.subHeader.copyWith(color: color),
                   ),
                   const SizedBox(height: 4),
                   Text(description, style: AppTextStyles.caption),
@@ -336,28 +337,28 @@ class CardShopScreen extends StatelessWidget {
     );
   }
 
-  Color _getRarityColor(CardRarity rarity) {
+  Color _getRarityColor(model.CardRarity rarity) {
     switch (rarity) {
-      case CardRarity.common:
+      case model.CardRarity.common:
         return MGColors.common;
-      case CardRarity.rare:
+      case model.CardRarity.rare:
         return MGColors.info;
-      case CardRarity.epic:
+      case model.CardRarity.epic:
         return Colors.purple;
-      case CardRarity.legendary:
+      case model.CardRarity.legendary:
         return MGColors.warning;
     }
   }
 
-  String _getRarityName(CardRarity rarity) {
+  String _getRarityName(model.CardRarity rarity) {
     switch (rarity) {
-      case CardRarity.common:
+      case model.CardRarity.common:
         return 'Common';
-      case CardRarity.rare:
+      case model.CardRarity.rare:
         return 'Rare';
-      case CardRarity.epic:
+      case model.CardRarity.epic:
         return 'Epic';
-      case CardRarity.legendary:
+      case model.CardRarity.legendary:
         return 'Legendary';
     }
   }
