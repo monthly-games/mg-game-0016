@@ -16,6 +16,8 @@ import 'screens/gacha_screen.dart';
 import 'screens/daily_quest_screen.dart';
 import 'screens/achievement_screen.dart';
 import 'screens/collection_screen.dart';
+import 'game/tutorial_config.dart';
+import 'game/balancing_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +27,41 @@ void main() async {
     await GetIt.I<AudioManager>().initialize();
   } catch (e) {
     debugPrint("Audio init failed: $e");
+  }
+
+  // ── Tutorial & Balancing ──────────────────────────────────
+  if (!GetIt.I.isRegistered<TutorialManager>()) {
+    final tutorialManager = TutorialManager();
+    await tutorialManager.initialize();
+    tutorialManager.registerTutorial(
+      kOnboardingTutorial.id,
+      kOnboardingTutorial.steps,
+    );
+    GetIt.I.registerSingleton<TutorialManager>(tutorialManager);
+  }
+  if (!GetIt.I.isRegistered<BalancingManager>()) {
+    GetIt.I.registerSingleton<BalancingManager>(
+      BalancingManager(defaultConfig: kDefaultBalancingConfig),
+    );
+  }
+  // ── Q7 DI Fix: Missing Systems ──────────────────────────
+  if (!GetIt.I.isRegistered<BattlePassManager>()) {
+    GetIt.I.registerSingleton<BattlePassManager>(BattlePassManager());
+  }
+  if (!GetIt.I.isRegistered<GachaManager>()) {
+    GetIt.I.registerSingleton<GachaManager>(GachaManager());
+  }
+  if (!GetIt.I.isRegistered<CollectionManager>()) {
+    GetIt.I.registerSingleton<CollectionManager>(CollectionManager());
+  }
+  if (!GetIt.I.isRegistered<GuildWarManager>()) {
+    GetIt.I.registerSingleton<GuildWarManager>(GuildWarManager());
+  }
+  if (!GetIt.I.isRegistered<TournamentManager>()) {
+    GetIt.I.registerSingleton<TournamentManager>(TournamentManager());
+  }
+  if (!GetIt.I.isRegistered<SeasonalContentManager>()) {
+    GetIt.I.registerSingleton<SeasonalContentManager>(SeasonalContentManager());
   }
 
   runApp(
