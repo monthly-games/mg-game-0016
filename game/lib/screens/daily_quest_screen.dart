@@ -1,4 +1,6 @@
-import 'dart:async';
+import 'dart:async';import 'package:mg_common_game/l10n/localization.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -15,10 +17,10 @@ import 'package:mg_common_game/systems/quests/daily_quest.dart';
 /// ## Firebase Analytics Events
 /// | Event | Trigger | Parameters |
 /// |-------|---------|------------|
-/// | `daily_quest_screen_viewed` | Screen opened | — |
+/// | `daily_quest_screen_viewed` | Screen opened | -- |
 /// | `daily_quest_completed` | Reward claimed | quest_id, reward_claimed |
 /// | `daily_quest_reward_claimed` | Reward claimed | quest_id, quest_title, gold_reward, xp_reward |
-/// | `daily_quest_all_completed` | All 3 quests done | — |
+/// | `daily_quest_all_completed` | All 3 quests done | -- |
 class DailyQuestScreen extends StatefulWidget {
   const DailyQuestScreen({super.key});
 
@@ -345,7 +347,7 @@ class _DailyQuestScreenState extends State<DailyQuestScreen> {
               const Spacer(),
               if (isClaimable)
                 MGButton(
-                  label: 'Claim',
+                  label: 'notification_rewardslength_rewards_claimed'.tr,
                   size: MGButtonSize.small,
                   icon: Icons.card_giftcard_rounded,
                   backgroundColor: MGColors.success,

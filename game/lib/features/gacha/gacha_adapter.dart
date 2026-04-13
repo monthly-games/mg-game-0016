@@ -53,30 +53,30 @@ class BattleCardGachaAdapter extends ChangeNotifier {
   List<GachaItem> _generateItems() {
     return [
       // UR (0.6%)
-      const GachaItem(id: 'ur_cardbattle_001', nameKr: '전설의 BattleCard', rarity: GachaRarity.ultraRare),
-      const GachaItem(id: 'ur_cardbattle_002', nameKr: '신화의 BattleCard', rarity: GachaRarity.ultraRare),
+      GachaItem(id: 'ur_cardbattle_001', nameKr: '전설의 BattleCard', rarity: GachaRarity.ultraRare),
+      GachaItem(id: 'ur_cardbattle_002', nameKr: '신화의 BattleCard', rarity: GachaRarity.ultraRare),
       // SSR (2.4%)
-      const GachaItem(id: 'ssr_cardbattle_001', nameKr: '영웅의 BattleCard', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'ssr_cardbattle_002', nameKr: '고대의 BattleCard', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'ssr_cardbattle_003', nameKr: '황금의 BattleCard', rarity: GachaRarity.superRare),
+      GachaItem(id: 'ssr_cardbattle_001', nameKr: '영웅의 BattleCard', rarity: GachaRarity.superRare),
+      GachaItem(id: 'ssr_cardbattle_002', nameKr: '고대의 BattleCard', rarity: GachaRarity.superRare),
+      GachaItem(id: 'ssr_cardbattle_003', nameKr: '황금의 BattleCard', rarity: GachaRarity.superRare),
       // SR (12%)
-      const GachaItem(id: 'sr_cardbattle_001', nameKr: '희귀한 BattleCard A', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'sr_cardbattle_002', nameKr: '희귀한 BattleCard B', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'sr_cardbattle_003', nameKr: '희귀한 BattleCard C', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'sr_cardbattle_004', nameKr: '희귀한 BattleCard D', rarity: GachaRarity.superRare),
+      GachaItem(id: 'sr_cardbattle_001', nameKr: '희귀한 BattleCard A', rarity: GachaRarity.superRare),
+      GachaItem(id: 'sr_cardbattle_002', nameKr: '희귀한 BattleCard B', rarity: GachaRarity.superRare),
+      GachaItem(id: 'sr_cardbattle_003', nameKr: '희귀한 BattleCard C', rarity: GachaRarity.superRare),
+      GachaItem(id: 'sr_cardbattle_004', nameKr: '희귀한 BattleCard D', rarity: GachaRarity.superRare),
       // R (35%)
-      const GachaItem(id: 'r_cardbattle_001', nameKr: '우수한 BattleCard A', rarity: GachaRarity.rare),
-      const GachaItem(id: 'r_cardbattle_002', nameKr: '우수한 BattleCard B', rarity: GachaRarity.rare),
-      const GachaItem(id: 'r_cardbattle_003', nameKr: '우수한 BattleCard C', rarity: GachaRarity.rare),
-      const GachaItem(id: 'r_cardbattle_004', nameKr: '우수한 BattleCard D', rarity: GachaRarity.rare),
-      const GachaItem(id: 'r_cardbattle_005', nameKr: '우수한 BattleCard E', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_cardbattle_001', nameKr: '우수한 BattleCard A', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_cardbattle_002', nameKr: '우수한 BattleCard B', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_cardbattle_003', nameKr: '우수한 BattleCard C', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_cardbattle_004', nameKr: '우수한 BattleCard D', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_cardbattle_005', nameKr: '우수한 BattleCard E', rarity: GachaRarity.rare),
       // N (50%)
-      const GachaItem(id: 'n_cardbattle_001', nameKr: '일반 BattleCard A', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_cardbattle_002', nameKr: '일반 BattleCard B', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_cardbattle_003', nameKr: '일반 BattleCard C', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_cardbattle_004', nameKr: '일반 BattleCard D', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_cardbattle_005', nameKr: '일반 BattleCard E', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_cardbattle_006', nameKr: '일반 BattleCard F', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_cardbattle_001', nameKr: '일반 BattleCard A', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_cardbattle_002', nameKr: '일반 BattleCard B', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_cardbattle_003', nameKr: '일반 BattleCard C', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_cardbattle_004', nameKr: '일반 BattleCard D', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_cardbattle_005', nameKr: '일반 BattleCard E', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_cardbattle_006', nameKr: '일반 BattleCard F', rarity: GachaRarity.normal),
     ];
   }
 

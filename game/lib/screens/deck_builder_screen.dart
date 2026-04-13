@@ -1,8 +1,12 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/cards/card_collection.dart';
 import '../models/card.dart' as model;
 import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
+import 'package:mg_common_game/l10n/localization.dart';
+
 
 class DeckBuilderScreen extends StatelessWidget {
   const DeckBuilderScreen({super.key});
@@ -13,7 +17,7 @@ class DeckBuilderScreen extends StatelessWidget {
       appBar: AppBar(
         title: Consumer<CardCollection>(
           builder: (context, collection, child) {
-            return Text('Deck Builder (${collection.currentDeck.length}/30)');
+            return Text('ui_general_deck_builder_collectioncurrentdecklength30'.tr);
           },
         ),
       ),
@@ -29,7 +33,7 @@ class DeckBuilderScreen extends StatelessWidget {
               Container(
                 height: 150,
                 color: Colors.black12,
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(MGSpacing.xs),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -37,7 +41,7 @@ class DeckBuilderScreen extends StatelessWidget {
                       "Current Deck",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: MGSpacing.xs),
                     Expanded(
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -63,7 +67,7 @@ class DeckBuilderScreen extends StatelessWidget {
               // 2. Collection Section (Bottom)
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(MGSpacing.xs),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -71,7 +75,7 @@ class DeckBuilderScreen extends StatelessWidget {
                         "Collection",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: MGSpacing.xs),
                       Expanded(
                         child: GridView.builder(
                           gridDelegate:
@@ -155,7 +159,7 @@ class CardItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.white30),
       ),
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(MGSpacing.xxs),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -168,12 +172,12 @@ class CardItem extends StatelessWidget {
             ),
           ),
           if (!isSmall) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: MGSpacing.xxs),
             Text(
               "${card.cost} Mana",
               style: const TextStyle(fontSize: 12, color: Colors.blueAccent),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: MGSpacing.xxs),
             Text(
               card.effect.description,
               textAlign: TextAlign.center,

@@ -1,8 +1,11 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/meta/quest_manager.dart';
 import '../models/quest.dart';
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 class QuestScreen extends StatefulWidget {
   const QuestScreen({super.key});
@@ -24,13 +27,13 @@ class _QuestScreenState extends State<QuestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Daily Quests')),
+      appBar: AppBar(title: Text('quest_daily_quests_2'.tr)),
       body: Consumer<QuestManager>(
         builder: (context, questManager, child) {
           final quests = questManager.activeQuests;
 
           if (quests.isEmpty) {
-            return const Center(child: Text("No active quests"));
+            return Center(child: Text('quest_no_active_quests'.tr));
           }
 
           return ListView.builder(
@@ -57,7 +60,7 @@ class _QuestScreenState extends State<QuestScreen> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       color: isClaimed ? Colors.white12 : Colors.grey[900],
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(MGSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,26 +68,26 @@ class _QuestScreenState extends State<QuestScreen> {
               quest.description,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: MGSpacing.xs),
             LinearProgressIndicator(
               value: (quest.currentValue / quest.targetValue).clamp(0.0, 1.0),
               backgroundColor: Colors.grey[800],
               color: isCompleted ? MGColors.success : MGColors.info,
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: MGSpacing.xxs),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("${quest.currentValue} / ${quest.targetValue}"),
+                Text('quest_questcurrentvalue_questtargetvalue'.tr),
                 if (isClaimed)
                   const Text("Claimed", style: TextStyle(color: MGColors.success))
                 else if (isCompleted)
                   ElevatedButton(
                     onPressed: () => manager.claimReward(quest.id),
-                    child: const Text("Claim Reward"),
+                    child: Text('notification_claim_reward'.tr),
                   )
                 else
-                  Text("Reward: ${quest.reward.gold} Gold"),
+                  Text('quest_reward_questrewardgold_gold'.tr),
               ],
             ),
           ],

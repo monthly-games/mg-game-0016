@@ -1,3 +1,5 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart' hide Hero;
 import '../models/battle_state.dart';
 import '../models/hero.dart';
@@ -5,7 +7,8 @@ import '../models/level_data.dart';
 import '../logic/battle_engine.dart';
 import '../data/mock_data.dart';
 import '../models/battle_event.dart';
-import 'widgets/floating_text.dart';
+import 'widgets/floating_text.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 import 'package:provider/provider.dart';
 import '../features/cards/card_collection.dart';
@@ -232,7 +235,7 @@ class _BattleScreenState extends State<BattleScreen> {
 
               // Control Area
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(MGSpacing.md),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -240,10 +243,10 @@ class _BattleScreenState extends State<BattleScreen> {
                       ElevatedButton.icon(
                         onPressed: _nextTurn,
                         icon: const Icon(Icons.play_arrow),
-                        label: const Text('Next Turn'),
+                        label: Text('ui_general_next_turn'.tr),
                       )
                     else
-                      const Text("Battle Ended"),
+                      Text('ui_general_battle_ended'.tr),
                   ],
                 ),
               ),
@@ -258,7 +261,7 @@ class _BattleScreenState extends State<BattleScreen> {
 
   Widget _buildHeroStats(Hero hero, Color color) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(MGSpacing.md),
       color: color,
       child: Column(
         children: [
@@ -266,7 +269,7 @@ class _BattleScreenState extends State<BattleScreen> {
             hero.name,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: MGSpacing.xs),
           LinearProgressIndicator(
             value: hero.stats.hp / hero.stats.maxHp,
             backgroundColor: MGColors.textHighEmphasis,
@@ -276,8 +279,8 @@ class _BattleScreenState extends State<BattleScreen> {
                   : MGColors.error,
             ),
           ),
-          const SizedBox(height: 4),
-          Text("HP: ${hero.stats.hp} / ${hero.stats.maxHp}"),
+          const SizedBox(height: MGSpacing.xxs),
+          Text('progress_hp_herostatshp_herostatsmaxhp'.tr),
         ],
       ),
     );

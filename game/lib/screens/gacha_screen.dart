@@ -1,5 +1,6 @@
 // ============================================================
-// Gacha Screen — MG-0016 Rhythm Clicker
+import 'package:mg_common_game/core/localization/localization.dart';
+// Gacha Screen -- MG-0016 Rhythm Clicker
 // Genre: Various · Retention System UI
 //
 // Firebase Analytics Events:
@@ -9,7 +10,8 @@
 //   - gacha_history_viewed: History/collection tab opened
 //
 // Template: Based on MG-0006 canonical template (Batch 1).
-// ============================================================
+// ============================================================import 'package:mg_common_game/l10n/localization.dart';
+
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -181,7 +183,7 @@ class _GachaScreenState extends State<GachaScreen>
                 Padding(
                   padding: const EdgeInsets.all(MGSpacing.lg),
                   child: MGButton(
-                    label: 'OK',
+                    label: 'ui_general_diwali_token_collection'.tr,
                     onPressed: _dismissResults,
                     size: MGButtonSize.large,
                     width: double.infinity,
@@ -523,7 +525,7 @@ class _GachaScreenState extends State<GachaScreen>
       children: [
         Expanded(
           child: GachaPullButton(
-            label: '1x Pull',
+            label: 'ui_general_1x_pull'.tr,
             cost: _kSinglePullCost,
             onPressed: _onSinglePull,
           ),
@@ -531,7 +533,7 @@ class _GachaScreenState extends State<GachaScreen>
         const SizedBox(width: MGSpacing.md),
         Expanded(
           child: GachaPullButton(
-            label: '10x Pull',
+            label: 'ui_general_10x_pull'.tr,
             cost: _kMultiPullCost,
             onPressed: _onMultiPull,
           ),
@@ -647,6 +649,7 @@ class _GachaScreenState extends State<GachaScreen>
       GachaRarity.superRare => MGColors.epic,
       GachaRarity.ultraRare => MGColors.legendary,
       GachaRarity.legendary => MGColors.mythic,
+      GachaRarity.superRare => MGColors.mythic,
     };
   }
 

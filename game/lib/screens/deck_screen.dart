@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import '../models/deck.dart';
-import '../data/mock_data.dart';
+import '../data/mock_data.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 class DeckScreen extends StatelessWidget {
   const DeckScreen({super.key});
@@ -10,7 +12,7 @@ class DeckScreen extends StatelessWidget {
     final Deck deck = MockData.starterDeck;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My Deck')),
+      appBar: AppBar(title: Text('ui_general_my_deck'.tr)),
       body: ListView.builder(
         itemCount: deck.cards.length,
         itemBuilder: (context, index) {

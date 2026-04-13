@@ -1,10 +1,13 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 import '../models/card.dart' as model;
 import '../features/cards/card_collection.dart';
 import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
-import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';
+import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 class CardShopScreen extends StatelessWidget {
   const CardShopScreen({super.key});
@@ -13,7 +16,7 @@ class CardShopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Card Shop'),
+        title: Text('shop_card_shop'.tr),
         backgroundColor: AppColors.primary,
       ),
       backgroundColor: AppColors.background,
@@ -27,7 +30,7 @@ class CardShopScreen extends StatelessWidget {
               // Shop items
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(MGSpacing.md),
                   children: [
                     _buildShopItem(
                       context,
@@ -85,8 +88,8 @@ class CardShopScreen extends StatelessWidget {
 
   Widget _buildCurrencyBar(CardCollection collection) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(MGSpacing.md),
+      margin: const EdgeInsets.all(MGSpacing.xs),
       decoration: BoxDecoration(
         color: AppColors.panel,
         borderRadius: BorderRadius.circular(12),
@@ -127,7 +130,7 @@ class CardShopScreen extends StatelessWidget {
     return Row(
       children: [
         Icon(icon, color: color, size: 24),
-        const SizedBox(width: 8),
+        const SizedBox(width: MGSpacing.xs),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -163,7 +166,7 @@ class CardShopScreen extends StatelessWidget {
       color: AppColors.panel,
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(MGSpacing.md),
         child: Row(
           children: [
             // Icon
@@ -177,7 +180,7 @@ class CardShopScreen extends StatelessWidget {
               child: Icon(icon, color: color, size: 32),
             ),
 
-            const SizedBox(width: 16),
+            const SizedBox(width: MGSpacing.md),
 
             // Info
             Expanded(
@@ -188,7 +191,7 @@ class CardShopScreen extends StatelessWidget {
                     title,
                     style: AppTextStyles.subHeader.copyWith(color: color),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: MGSpacing.xxs),
                   Text(description, style: AppTextStyles.caption),
                 ],
               ),
@@ -245,7 +248,7 @@ class CardShopScreen extends StatelessWidget {
     if (!success) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Not enough currency!')));
+      ).showSnackBar(const SnackBar(content: Text('ui_general_not_enough_currency'.tr)));
       return;
     }
 
@@ -292,7 +295,7 @@ class CardShopScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text('ui_general_diwali_token_collection'.tr),
           ),
         ],
       ),
@@ -327,7 +330,7 @@ class CardShopScreen extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 2,
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: MGSpacing.xxs),
           Text(
             _getRarityName(card.rarity),
             style: TextStyle(color: _getRarityColor(card.rarity), fontSize: 10),

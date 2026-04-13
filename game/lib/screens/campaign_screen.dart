@@ -1,10 +1,13 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 import '../features/campaign/campaign_manager.dart';
 import '../models/level_data.dart';
 import 'battle_screen.dart';
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 class CampaignScreen extends StatelessWidget {
   const CampaignScreen({super.key});
@@ -12,7 +15,7 @@ class CampaignScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Campaign')),
+      appBar: AppBar(title: Text('ui_general_campaign_mode'.tr)),
       body: Consumer<CampaignManager>(
         builder: (context, manager, child) {
           if (manager.isLoading) {
@@ -40,7 +43,7 @@ class CampaignScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(MGSpacing.md),
           child: Text(
             chapter.name,
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -72,7 +75,7 @@ class CampaignScreen extends StatelessWidget {
       trailing: isUnlocked
           ? ElevatedButton(
               onPressed: () => _startStage(context, stage),
-              child: const Text('Battle'),
+              child: Text('ui_general_battle_pass'.tr),
             )
           : const Text('Locked', style: TextStyle(color: MGColors.common)),
     );

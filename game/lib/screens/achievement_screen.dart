@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mg_common_game/core/ui/mg_ui.dart';
@@ -382,7 +383,7 @@ class _AchievementScreenState extends State<AchievementScreen>
       borderWidth: 1,
       child: Row(
         children: [
-          // Achievement icon — gold for unlocked, gray for locked
+          // Achievement icon -- gold for unlocked, gray for locked
           Container(
             width: MGSpacing.xxl,
             height: MGSpacing.xxl,

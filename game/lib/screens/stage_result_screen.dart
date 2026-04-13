@@ -1,3 +1,4 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
 import 'package:flutter/material.dart';
 import '../models/level_data.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
@@ -25,7 +26,7 @@ class StageResultScreen extends StatelessWidget {
       backgroundColor: Colors.black.withValues(alpha: 0.85),
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(32),
+          padding: const EdgeInsets.all(MGSpacing.xl),
           margin: const EdgeInsets.symmetric(horizontal: 24),
           decoration: BoxDecoration(
             color: AppColors.panel,
@@ -46,16 +47,16 @@ class StageResultScreen extends StatelessWidget {
                   color: victory ? AppColors.primary : MGColors.error,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: MGSpacing.md),
               if (victory && earnedReward != null) ...[
                 const Text(
                   'Rewards Obtained:',
                   style: TextStyle(fontSize: 18, color: Colors.white70),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: MGSpacing.md),
                 _buildRewardRow(),
               ],
-              const SizedBox(height: 32),
+              const SizedBox(height: MGSpacing.xl),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -91,7 +92,7 @@ class StageResultScreen extends StatelessWidget {
                   color: Colors.yellow,
                   size: 32,
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: MGSpacing.xxs),
                 Text(
                   '${earnedReward!.gold}',
                   style: const TextStyle(
@@ -109,7 +110,7 @@ class StageResultScreen extends StatelessWidget {
             child: Column(
               children: [
                 const Icon(Icons.diamond, color: Colors.cyan, size: 32),
-                const SizedBox(height: 4),
+                const SizedBox(height: MGSpacing.xxs),
                 Text(
                   '${earnedReward!.crystals}',
                   style: const TextStyle(

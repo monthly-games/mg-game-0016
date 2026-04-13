@@ -1,5 +1,8 @@
 import 'package:mg_common_game/mg_common_game.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 /// MG-0016 Card Battle HUD
 /// 카드 배틀 게임용 HUD - 턴 정보, 덱/패/무덤 카운트, 마나 표시
@@ -164,7 +167,7 @@ class MGCardBattleHud extends StatelessWidget {
             icon: Icons.layers,
             count: deckCount,
             color: MGColors.info,
-            label: 'Deck',
+            label: 'ui_general_deckbuilding_heroes'.tr,
           ),
           const SizedBox(width: MGSpacing.md),
           // 패
@@ -172,7 +175,7 @@ class MGCardBattleHud extends StatelessWidget {
             icon: Icons.style,
             count: handCount,
             color: MGColors.success,
-            label: 'Hand',
+            label: 'progress_'.tr핸들링_playerselectedvehiclebasestatshandling10,
           ),
           const SizedBox(width: MGSpacing.md),
           // 무덤
@@ -180,7 +183,7 @@ class MGCardBattleHud extends StatelessWidget {
             icon: Icons.delete_outline,
             count: discardCount,
             color: MGColors.common,
-            label: 'Discard',
+            label: 'progress_this_will_discard_your_current'.tr,
           ),
         ],
       ),
@@ -294,4 +297,34 @@ class MGCardBattleHud extends StatelessWidget {
       ),
     );
   }
+
+
+  Widget _buildSpineCharacter() {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.lightImpact();
+      },
+      child: Container(
+        width: 60,
+        height: 60,
+        decoration: BoxDecoration(
+          color: Colors.grey.withValues(alpha: 0.6),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey.withAlpha(150), width: 2),
+        ),
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.person, size: 24, color: Colors.white),
+            SizedBox(height: 2),
+            Text(
+              'Sniper',
+              style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }
