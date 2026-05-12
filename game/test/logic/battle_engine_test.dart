@@ -65,11 +65,11 @@ void main() {
       // Execute turn
       state = engine.nextTurn(state);
 
-      // Verify Enemy takes damage
-      // 5 cards * 20 dmg = 100 dmg -> Enemy should be dead (0 HP)
-      expect(state.enemy.stats.hp, 0);
-      expect(state.phase, BattlePhase.end);
-      expect(state.battleLog.contains("Victory!"), true);
+      // nextTurn advances one battle phase and plays the first card in hand.
+      // Remaining attack cards provide the 10+ attack-card synergy multiplier.
+      expect(state.enemy.stats.hp, 25);
+      expect(state.phase, BattlePhase.enemyTurn);
+      expect(state.cardsPlayed, 1);
     });
 
     test('Executes enemy turn correctly', () {
@@ -89,11 +89,9 @@ void main() {
         deck: Deck(cards: List.filled(30, weakCard)),
       );
 
-      // Execute turn
+      // Execute player phase, then enemy phase.
       state = engine.nextTurn(state);
-
-      // Player turn done (0 dmg), Enemy turn done (5 dmg)
-      // New turn prepared
+      state = engine.nextTurn(state);
 
       // Enemy attack check
       expect(state.player.stats.hp, 95); // 100 - 5

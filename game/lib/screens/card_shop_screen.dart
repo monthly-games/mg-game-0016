@@ -6,7 +6,7 @@ import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 import '../models/card.dart' as model;
 import '../features/cards/card_collection.dart';
 import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
-import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';import 'package:mg_common_game/l10n/localization.dart';
+import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';
 
 
 class CardShopScreen extends StatelessWidget {
@@ -248,7 +248,9 @@ class CardShopScreen extends StatelessWidget {
     if (!success) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('ui_general_not_enough_currency'.tr)));
+      ).showSnackBar(
+        const SnackBar(content: Text('Not enough currency')),
+      );
       return;
     }
 

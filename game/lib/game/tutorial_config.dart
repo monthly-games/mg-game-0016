@@ -1,11 +1,10 @@
 import 'package:mg_common_game/systems/tutorial/tutorial.dart';
-import 'package:mg_common_game/systems/tutorial/tutorial_data.dart';
 
 /// Tutorial configuration for MG-0016: Deckbuilding Heroes.
 ///
 /// Placeholder tutorial steps -- replace with localized strings
 /// and add targetSelector for highlight positioning in production.
-final kOnboardingTutorial = TutorialConfig(
+const kOnboardingTutorial = TutorialConfig(
   id: 'onboarding',
   name: 'Deckbuilding Heroes Tutorial',
   steps: [

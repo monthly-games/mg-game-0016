@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../features/cards/card_collection.dart';
 import '../models/card.dart' as model;
 import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
-import 'package:mg_common_game/l10n/localization.dart';
 
 
 class DeckBuilderScreen extends StatelessWidget {

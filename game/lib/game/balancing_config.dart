@@ -1,9 +1,9 @@
 // import 'package:mg_common_game/systems/balancing/balancing.dart'; // Temporarily disabled - module doesn't exist yet
 
-/// Default balancing configuration for MG-0016: Deckbuilding Heroes.
-///
-/// Placeholder values -- override via RemoteConfig using
-/// BalancingManager.loadFromRemote in production.
+// Default balancing configuration for MG-0016: Deckbuilding Heroes.
+//
+// Placeholder values -- override via RemoteConfig using
+// BalancingManager.loadFromRemote in production.
 // const kDefaultBalancingConfig = BalancingConfig(
 //   gameId: 'mg-0016',
 //   version: 1,

@@ -10,7 +10,7 @@ void main() {
     setUp(() async {
       SharedPreferences.setMockInitialValues({});
       collection = CardCollection();
-      // await collection init if possible, or assume mock sync
+      await _waitUntilLoaded(collection);
     });
 
     test('Card Upgrades work', () async {
@@ -44,4 +44,14 @@ void main() {
       expect(collection.getCardById('c7'), isNotNull); // Meteor
     });
   });
+}
+
+Future<void> _waitUntilLoaded(CardCollection collection) async {
+  for (var i = 0; i < 20; i++) {
+    if (!collection.isLoading) {
+      return;
+    }
+    await Future<void>.delayed(const Duration(milliseconds: 10));
+  }
+  fail('CardCollection did not finish loading');
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mg_common_game/core/localization/localization.dart';
 import '../models/deck.dart';
-import '../data/mock_data.dart';import 'package:mg_common_game/l10n/localization.dart';
+import '../data/mock_data.dart';
 
 
 class DeckScreen extends StatelessWidget {

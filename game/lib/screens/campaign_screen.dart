@@ -6,7 +6,7 @@ import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 import '../features/campaign/campaign_manager.dart';
 import '../models/level_data.dart';
 import 'battle_screen.dart';
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';import 'package:mg_common_game/l10n/localization.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 
 class CampaignScreen extends StatelessWidget {

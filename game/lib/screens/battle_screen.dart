@@ -7,7 +7,7 @@ import '../models/level_data.dart';
 import '../logic/battle_engine.dart';
 import '../data/mock_data.dart';
 import '../models/battle_event.dart';
-import 'widgets/floating_text.dart';import 'package:mg_common_game/l10n/localization.dart';
+import 'widgets/floating_text.dart';
 
 
 import 'package:provider/provider.dart';
