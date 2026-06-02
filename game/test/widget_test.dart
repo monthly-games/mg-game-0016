@@ -1,28 +1,12 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
-import 'package:game/features/cards/deck_manager.dart';
-
-import 'package:game/main.dart'; // Ensure package name is correct
+import 'package:game/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(
-      MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => DeckManager())],
-        child: const DeckGameApp(),
-      ),
-    );
+  testWidgets('app boots to the main menu', (tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
 
-    // Verify that our Mana starts at 3/3.
-    await tester.pump(const Duration(seconds: 2));
-    expect(find.text('Mana: 3/3'), findsOneWidget);
+    expect(find.textContaining('MG-'), findsWidgets);
+    expect(find.text('Start Game'), findsOneWidget);
   });
 }
